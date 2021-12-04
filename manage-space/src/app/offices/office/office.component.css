@@ -1,14 +1,60 @@
-.office-card {
-    max-width: 400px;
-    margin: 15px;
-    background: #c9c8c8;
-  }
-
-  .office-accordion {
+.office-accordion {
     padding: 1px;
-  }
+}
 
-  .vertical-card-line {
-    border-left: 6px solid green;
-    height: 60px;
-  }
+.mat-divider.mat-divider-inset {
+    margin-left: 0px;
+    height: -3px;
+    background-color: black;
+}
+
+.mat-expansion-panel-header:not([aria-disabled=true]) {
+    background-color: white;
+    color: black;
+}
+
+@media (hover: none) {
+    .mat-expansion-panel:not(.mat-expanded):not([aria-disabled=true]) .mat-expansion-panel-header:hover {
+        background: white;
+    }
+}
+
+.mat-expansion-panel-header-title,
+.mat-expansion-panel-header-description {
+    color: black;
+}
+
+.mat-expansion-panel {
+    color: black !important;
+    background-color: white !important;
+}
+
+.card-body {
+    padding-bottom: 0px;
+}
+
+.hstack {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-self: stretch;
+}
+
+.card.rounded-3 {
+    padding: 0px;
+    max-width: 450px;
+    margin-bottom: 10px;
+}
+
+.vr {
+    display: inline-block;
+    align-self: stretch;
+    min-height: 1em;
+    width: 20px;
+}
+
+.mat-expansion-panel-body {
+    padding: 0 24px 16px;
+    background-color: white;
+    color: black;
+}

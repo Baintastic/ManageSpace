@@ -1,70 +1,80 @@
-<mat-card class="office-card">
-  <div class="vertical-card-line"></div>
-  <mat-card-title>
+<div class="container-fluid">
     <div class="row">
-      <div class="col-10">
-        {{office?.name}}
-      </div>
-      <div class="col-2">
-        <mat-icon>edit</mat-icon>
-      </div>
-      <div class="col-2">
-        <a routerLink="/detail/{{office?.id}}">View Details</a>
-      </div>
+        <div class="card rounded-3">
+            <div class="hstack">
+                <div class="vr" [style.background-color]="randomColor"></div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-10">
+                            <h2 class="card-title" routerLink="/detail/{{office?.id}}">{{office?.name}}</h2>
+                        </div>
+                        <div class="col-2">
+                            <mat-icon>edit</mat-icon>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-1">
+                            <mat-icon> group</mat-icon>
+                        </div>
+                        <div class="col-11">
+                            <p class="card-text">{{office?.maxCapacity}} Staff Members in Office</p>
+                        </div>
+                    </div>
+                    <mat-divider inset></mat-divider>
+                    <mat-accordion class="office-accordion">
+                        <mat-expansion-panel (opened)="panelOpenState" (closed)="!panelOpenState" (click)="stateChanged($event)">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                </mat-panel-title>
+                                <mat-panel-description>
+                                    <div class="row justify-content-md-center">
+                                        <div class="col-8">
+                                            More Info
+                                        </div>
+                                        <div class="col-2">
+                                            <mat-icon *ngIf="!panelOpenState">keyboard_arrow_down</mat-icon>
+                                            <mat-icon *ngIf="panelOpenState">keyboard_arrow_up</mat-icon>
+                                        </div>
+                                    </div>
+
+                                </mat-panel-description>
+                            </mat-expansion-panel-header>
+                            <div class="row">
+                                <div class="col-1">
+                                    <mat-icon> call</mat-icon>
+                                </div>
+                                <div class="col-11">
+                                    {{office?.phoneNumber}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1">
+                                    <mat-icon> email</mat-icon>
+                                </div>
+                                <div class="col-11">
+                                    {{office?.emailAddress}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1">
+                                    <mat-icon> group</mat-icon>
+                                </div>
+                                <div class="col-11">
+                                    Office Capacity: {{office?.maxCapacity}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1">
+                                    <mat-icon> edit_location</mat-icon>
+                                </div>
+                                <div class="col-11">
+                                    {{office?.physicalAddress}}
+                                </div>
+                            </div>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </div>
+            </div>
+        </div>
     </div>
-  </mat-card-title>
-  <mat-card-content>
-    <div class="row">
-      <div class="col-1">
-        <mat-icon> group</mat-icon>
-      </div>
-      <div class="col-11">
-        {{office?.maxCapacity}} Staff Members in Office
-      </div>
-    </div>
-    <mat-divider inset></mat-divider>
-    <mat-accordion class="office-accordion">
-      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-          </mat-panel-title>
-          <mat-panel-description>
-            More Info
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="row">
-          <div class="col-1">
-            <mat-icon> call</mat-icon>
-          </div>
-          <div class="col-11">
-            {{office?.phoneNumber}}
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-1">
-            <mat-icon> email</mat-icon>
-          </div>
-          <div class="col-11">
-            {{office?.emailAddress}}
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-1">
-            <mat-icon> group</mat-icon>
-          </div>
-          <div class="col-11">
-            Office Capacity: {{office?.maxCapacity}}
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-1">
-            <mat-icon> edit_location</mat-icon>
-          </div>
-          <div class="col-11">
-            {{office?.physicalAddress}}
-          </div>
-        </div>
-      </mat-expansion-panel>
-    </mat-accordion>
-  </mat-card-content>
-</mat-card>
+</div>

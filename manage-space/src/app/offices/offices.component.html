@@ -1,14 +1,13 @@
-<h1>All Offices</h1>
-
-<div class="row" *ngFor="let office of offices">
-    <div class="col">
-        <app-office [office]="office"></app-office>
+<div class="container-fluid">
+    <div class="row">
+        <h1 class="my-3">All Offices</h1>
+    </div>
+    <div class="row">
+        <div class="col-sm-3" *ngFor="let office of offices">
+            <app-office [office]="office"></app-office>
+        </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-9">
-    </div>
-    <div class="col-3">
-        <button mat-fab color="basic">+</button>
-    </div>
+<div>
+    <button mat-fab color="basic" style="z-index: 10; position: fixed; right: 20px; top: 600px;" routerLink="/add-office">+</button>
 </div>
