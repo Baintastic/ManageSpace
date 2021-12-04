@@ -14,6 +14,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatIconModule} from '@angular/material/icon'
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
+import { StaffMembersComponent } from './staff-members/staff-members.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {MatInputModule} from '@angular/material/input';
     OfficesComponent,
     OfficeComponent,
     OfficeDetailComponent
+    StaffMembersComponent,
   ],
   imports: [
     BrowserModule,

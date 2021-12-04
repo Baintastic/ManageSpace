@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Office } from 'src/app/models/office';
 import { StaffMember } from 'src/app/models/staff-member';
 import { Location } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-office-detail',
@@ -15,11 +16,11 @@ export class OfficeDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
-    console.log('im in AGANI!! it is ', this.office);
     this.getOffice();
   }
 
@@ -32,33 +33,17 @@ export class OfficeDetailComponent implements OnInit {
       phoneNumber: '0312394888',
       maxCapacity: '15'
     }
-
-    this.getStaffMembers();
-  }
-
-  getStaffMembers(): void {
-    this.staffMembers = [{
-      id: 1,
-      firstName: 'Chris',
-      lastName: 'Evans'
-    }, {
-      id: 1,
-      firstName: 'Paul',
-      lastName: 'Walker'
-    }, {
-      id: 1,
-      firstName: 'Michael',
-      lastName: 'Lite'
-    },
-    {
-      id: 1,
-      firstName: 'Boboy',
-      lastName: 'Schmurda'
-    }];
   }
 
   goBack(): void {
     this.location.back();
   }
 
+  deleteStaffMember(): void {
+    console.log('deleted office');
+  }
+
+  deleteOffice(): void {
+    console.log('deleted all staff members and office ');
+  }
 }
