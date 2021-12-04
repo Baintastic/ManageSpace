@@ -1,0 +1,14 @@
+.office-card {
+    max-width: 400px;
+    margin: 15px;
+    background: #c9c8c8;
+  }
+
+  .office-accordion {
+    padding: 1px;
+  }
+
+  .vertical-card-line {
+    border-left: 6px solid green;
+    height: 60px;
+  }

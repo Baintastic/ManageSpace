@@ -1,0 +1,14 @@
+<h1>All Offices</h1>
+
+<div class="row" *ngFor="let office of offices">
+    <div class="col">
+        <app-office [office]="office"></app-office>
+    </div>
+</div>
+<div class="row">
+    <div class="col-9">
+    </div>
+    <div class="col-3">
+        <button mat-fab color="basic">+</button>
+    </div>
+</div>
