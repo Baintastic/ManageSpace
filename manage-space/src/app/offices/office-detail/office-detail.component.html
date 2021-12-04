@@ -1,5 +1,5 @@
-<div class="container-fluid">
-    <div class="row justify-content-md-center">
+<div class="container">
+    <div class="row my-3 justify-content-md-center">
         <div class="col-2">
             <a (click)="goBack()">
                 <mat-icon>keyboard_backspace</mat-icon>
@@ -9,11 +9,10 @@
             <h1>Office</h1>
         </div>
     </div>
-    <app-office [office] = "office"></app-office>
-    <app-staff-members ></app-staff-members>
-</div>
-<div class="container">
-    <div class="row">
-      <h1 class="text-center my-3">Related Accounts</h1>
+    <div class="row my-3 justify-content-md-center">
+        <div class="col">
+            <app-office [office]="office"></app-office>
+        </div>
     </div>
-  </div>
+    <app-staff-members></app-staff-members>
+</div>

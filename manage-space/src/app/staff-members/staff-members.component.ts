@@ -10,6 +10,7 @@ import { StaffMember } from '../models/staff-member';
 export class StaffMembersComponent implements OnInit {
   staffMembers: StaffMember[] = [];
   office: Office | undefined;
+  searchText: string = "";
   
   constructor() { }
 
