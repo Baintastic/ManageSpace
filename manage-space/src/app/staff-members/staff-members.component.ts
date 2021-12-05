@@ -1,23 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { Office } from '../models/office';
 import { StaffMember } from '../models/staff-member';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { AddEditStaffMemberComponent } from './add-edit-staff-member/add-edit-staff-member.component';
 
 @Component({
   selector: 'app-staff-members',
   templateUrl: './staff-members.component.html',
   styleUrls: ['./staff-members.component.css']
 })
+
 export class StaffMembersComponent implements OnInit {
   staffMembers: StaffMember[] = [];
   office: Office | undefined;
   searchText: string = "";
-  
-  constructor() { }
+
+  constructor( private modalService: NgbModal) {
+  }
 
   ngOnInit(): void {
     this.getOffice();
     this.getAllStaffMembers();
-  }
+   }
 
   getAllStaffMembers(): void {
     this.staffMembers = [{
@@ -56,4 +60,9 @@ export class StaffMembersComponent implements OnInit {
     }
   }
   
+  open(member?: any) {
+    const modalRef = this.modalService.open(AddEditStaffMemberComponent, { centered: true });
+    modalRef.componentInstance.staffmember = member;
+  }
+
 }

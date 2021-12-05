@@ -48,6 +48,7 @@ import { OfficeColourComponent } from './offices/office-colour/office-colour.com
     MatDialogModule,
     Ng2SearchPipeModule
   ],
+  entryComponents: [AddEditStaffMemberComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

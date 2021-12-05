@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: 'offices', component: OfficesComponent },
   { path: 'detail/:id', component: OfficeDetailComponent },
   { path: 'add-office', component: AddEditOfficeComponent },
-  { path: 'edit/:id', component: AddEditOfficeComponent }
+  { path: 'edit-office/:id', component: AddEditOfficeComponent }
   
 ];
 
