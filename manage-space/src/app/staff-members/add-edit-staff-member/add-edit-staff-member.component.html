@@ -1,0 +1,84 @@
+<div class="modal-header">
+    <div class="row">
+        <div class="col-2">
+            <a id="prevBtn" (click)="nextPrev(-1)">
+                <mat-icon>keyboard_backspace</mat-icon>
+            </a>
+        </div>
+        <div id="title" class="col-10">
+            <h2 class="modal-title" id="modal-basic-title"><strong>New Staff member</strong></h2>
+        </div>
+    </div>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+</div>
+<div class="modal-body">
+    <form id="memberForm" [formGroup]="memberForm" (submit)="onSubmit()">
+        <div class="form-group">
+            <div class="tab">
+                <div class="row d-flex justify-content-center">
+                    <div class="form-group col-md-6 ">
+                        <input type="text" class="form-control" placeholder="First Name" formControlName="firstName" required />
+                        <div *ngIf="f.firstName.touched && f.firstName.errors?.required" class="alert-danger">
+                            First Name is required
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row d-flex justify-content-center mt-2">
+                    <div class="form-group col-md-6">
+                        <input type="text" class="form-control" placeholder="Last Name" formControlName="lastName" required />
+                        <div *ngIf="f.lastName.touched && f.lastName.errors?.required" class="alert-danger">
+                            Last Name is required
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab">
+                <div class="row">
+                    <div class="col-10">
+                        <h1><strong>Avatar</strong></h1>
+                    </div>
+                </div>
+                <!-- <div class="row">
+                        <div class="col mt-2 d-flex justify-content-evenly" *ngFor="let avatar of avatars">
+                            <div class="form-check">
+                                <input class="form-check-input" [style.background-u]="color" type="radio" [value]="color" formControlName="colour" [checked]="(avatar === selectedColour)">
+                            </div>
+                        </div>
+                    </div> -->
+            </div>
+
+            <div class="step-pointer">
+                <span class="step"></span>
+                <span class="step"></span>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col d-flex justify-content-center">
+                    <button type="button" class="btn btn-primary add-button rounded-pill" id="nextBtn" (click)="nextPrev(1)">NEXT</button>
+                </div>
+            </div>
+            <!-- <div style="overflow:auto;">
+                <div style="float:right;">
+                    <button type="button" id="prevBtn" (click)="nextPrev(-1)">Previous</button>
+                    <button type="button" id="nextBtn" (click)="nextPrev(1)">NEXT</button>
+                </div>
+            </div> -->
+
+            <!-- <div class="row mt-4">
+                <div class="col d-flex justify-content-center">
+                    <button type="button" class="btn btn-primary add-button rounded-pill" type="submit" [disabled]="memberForm.invalid">{{ isAddMode ? 'ADD OFFICE' : 'UPDATE OFFICE'}}</button>
+                </div>
+            </div>
+            <div class="row mt-4" *ngIf="!isAddMode">
+                <div class="col d-flex justify-content-center">
+                    <button type="button" class="btn delete-btn-primary add-button rounded-pill" type="submit">{{ 'DELETE OFFICE'}}</button>
+                </div>
+            </div> -->
+        </div>
+
+
+    </form>
+</div>
