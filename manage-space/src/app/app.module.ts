@@ -8,19 +8,23 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { OfficesComponent } from './offices/offices.component';
 import { OfficeComponent } from './offices/office/office.component';
 import { OfficeDetailComponent } from './offices/office-detail/office-detail.component';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatCardModule} from '@angular/material/card';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatIconModule} from '@angular/material/icon'
-import {MatButtonModule} from '@angular/material/button';
-import {MatInputModule} from '@angular/material/input';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon'
+import { MatButtonModule } from '@angular/material/button';
 import { AddEditOfficeComponent } from './offices/add-edit-office/add-edit-office.component';
 import { StaffMembersComponent } from './staff-members/staff-members.component';
 import { AddEditStaffMemberComponent } from './staff-members/add-edit-staff-member/add-edit-staff-member.component';
-import {MatDialogModule} from '@angular/material/dialog';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { OfficeColourComponent } from './offices/office-colour/office-colour.component';
+import { environment } from 'src/environments/environment';
+import { AngularFireModule } from '@angular/fire/compat';
+import {  AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 
+export const firebaseConfig = environment.firebaseConfig;
 
 @NgModule({
   declarations: [
@@ -37,16 +41,18 @@ import { OfficeColourComponent } from './offices/office-colour/office-colour.com
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule ,
+    ReactiveFormsModule,
     NoopAnimationsModule,
     MatExpansionModule,
     MatCardModule,
     MatDividerModule,
     MatIconModule,
     MatButtonModule,
-    MatInputModule,
-    MatDialogModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule,
+    AngularFireDatabaseModule,
+    NgbModule
   ],
   entryComponents: [AddEditStaffMemberComponent],
   providers: [],
