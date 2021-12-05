@@ -50,7 +50,7 @@ export class StaffMembersComponent implements OnInit {
 
   getOffice(): void {
     this.office = {
-      id: 2,
+      officeId: '2',
       name: 'Carbon',
       physicalAddress: '8 Royale Rd',
       emailAddress: 'carbon@gmail.com',

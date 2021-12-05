@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Office } from 'src/app/models/office';
 import { StaffMember } from 'src/app/models/staff-member';
 import { Location } from '@angular/common';
-import { MatDialog } from '@angular/material/dialog';
+import { OfficeService } from '../office.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-office-detail',
@@ -13,27 +14,23 @@ import { MatDialog } from '@angular/material/dialog';
 export class OfficeDetailComponent implements OnInit {
   office: Office | undefined;
   staffMembers: StaffMember[] = [];
+  officeId: string = '';
 
   constructor(
     private route: ActivatedRoute,
     private location: Location,
-    public dialog: MatDialog
+    private officeService: OfficeService
   ) { }
 
   ngOnInit(): void {
-    this.getOffice();
-  }
+    this.getOfficeDetails();
+  };
 
-  getOffice(): void {
-    this.office = {
-      id: 2,
-      name: 'Carbon',
-      physicalAddress: '8 Royale Rd',
-      emailAddress: 'carbon@gmail.com',
-      phoneNumber: '0312394888',
-      maxCapacity: '15',
-      colour: 'red'
-    }
+  getOfficeDetails(): void {
+    this.officeId = this.route.snapshot.paramMap.get('id')!;
+    this.officeService.getbyId(this.officeId).subscribe(data => {
+      this.office = data.data() as Office;
+    })
   }
 
   goBack(): void {

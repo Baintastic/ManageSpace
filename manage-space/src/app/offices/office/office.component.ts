@@ -7,27 +7,18 @@ import { Office } from 'src/app/models/office';
   styleUrls: ['./office.component.css']
 })
 export class OfficeComponent implements OnInit {
-  @Input() office?: Office;
+  @Input() office?: any;
   panelOpenState = false;
   randomColor: string = "";
+  officeId: string = '';
 
   constructor() { }
 
   ngOnInit(): void {
-    this.getBackgroundColor();
+    this.officeId = this.office?.id!;
   }
 
-  getBackgroundColor(): void {
-    var colors = ['blue', 'red', 'purple', 'yellow', 'green', 'orange','brown','pink'];
-    var randomIndex = this.getRandomInt(7);
-     this.randomColor = colors[randomIndex];
-  }
-
-  getRandomInt(max: number) {
-    return Math.floor(Math.random() * max);
-  }
-
-  stateChanged(event: any){
+  stateChanged(event: any) {
     this.panelOpenState = !this.panelOpenState;
   }
 }

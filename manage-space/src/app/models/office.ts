@@ -1,5 +1,5 @@
 export interface Office {
-    id: number;
+    officeId?: string;
     name: string;
     physicalAddress: string;
     emailAddress: string;

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Office } from '../models/office';
+import { map } from 'rxjs/operators';
+import { OfficeService } from './office.service';
 
 @Component({
   selector: 'app-offices',
@@ -9,67 +11,20 @@ import { Office } from '../models/office';
 export class OfficesComponent implements OnInit {
   offices: Office[] = [];
 
-  constructor() { }
+  constructor(private officeService: OfficeService) { }
 
   ngOnInit(): void {
     this.getAllOffices();
   }
 
-  getAllOffices() {
-    this.offices = [{
-      id: 1,
-      name: 'Specno',
-      physicalAddress: '5 Royale Rd',
-      emailAddress: 'spec@gmail.com',
-      phoneNumber: '0312394999',
-      maxCapacity: '6',
-      colour: 'red'
-    },
-    {
-      id: 2,
-      name: 'Carbon',
-      physicalAddress: '8 Royale Rd',
-      emailAddress: 'carbon@gmail.com',
-      phoneNumber: '0312394888',
-      maxCapacity: '15',
-      colour: 'red'
-    },
-    {
-      id: 3,
-      name: 'Red',
-      physicalAddress: '5 Royale Rd',
-      emailAddress: 'spec@gmail.com',
-      phoneNumber: '0312394999',
-      maxCapacity: '6',
-      colour: 'red'
-    },
-    {
-      id: 4,
-      name: 'Yellow',
-      physicalAddress: '8 Royale Rd',
-      emailAddress: 'carbon@gmail.com',
-      phoneNumber: '0312394888',
-      maxCapacity: '15',
-      colour: 'red'
-    },
-    {
-      id: 5,
-      name: 'Blue',
-      physicalAddress: '5 Royale Rd',
-      emailAddress: 'spec@gmail.com',
-      phoneNumber: '0312394999',
-      maxCapacity: '6',
-      colour: 'red'
-    },
-    {
-      id: 2,
-      name: 'Carbon',
-      physicalAddress: '8 Royale Rd',
-      emailAddress: 'carbon@gmail.com',
-      phoneNumber: '0312394888',
-      maxCapacity: '15',
-      colour: 'red'
-    },
-    ]
+  getAllOffices(): void {
+    this.officeService.getAll().subscribe(data => {
+      this.offices = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          ...e.payload.doc.data() as Office
+        }
+      })
+    });
   }
 }
