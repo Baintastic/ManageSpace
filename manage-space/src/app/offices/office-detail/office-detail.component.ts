@@ -31,7 +31,8 @@ export class OfficeDetailComponent implements OnInit {
       physicalAddress: '8 Royale Rd',
       emailAddress: 'carbon@gmail.com',
       phoneNumber: '0312394888',
-      maxCapacity: '15'
+      maxCapacity: '15',
+      colour: 'red'
     }
   }
 

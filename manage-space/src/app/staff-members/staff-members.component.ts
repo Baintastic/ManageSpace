@@ -23,20 +23,24 @@ export class StaffMembersComponent implements OnInit {
     this.staffMembers = [{
       id: 1,
       firstName: 'Chris',
-      lastName: 'Evans'
+      lastName: 'Evans',
+      avatar: 'red'
     }, {
       id: 1,
       firstName: 'Paul',
-      lastName: 'Walker'
+      lastName: 'Walker',
+      avatar: 'red'
     }, {
       id: 1,
       firstName: 'Michael',
-      lastName: 'Lite'
+      lastName: 'Lite',
+      avatar: 'red'
     },
     {
       id: 1,
       firstName: 'Boboy',
-      lastName: 'Schmurda'
+      lastName: 'Schmurda',
+      avatar: 'red'
     }];
   }
 
@@ -47,7 +51,8 @@ export class StaffMembersComponent implements OnInit {
       physicalAddress: '8 Royale Rd',
       emailAddress: 'carbon@gmail.com',
       phoneNumber: '0312394888',
-      maxCapacity: '15'
+      maxCapacity: '15',
+      colour: 'red'
     }
   }
   

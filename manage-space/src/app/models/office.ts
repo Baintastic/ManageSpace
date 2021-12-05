@@ -5,4 +5,5 @@ export interface Office {
     emailAddress: string;
     phoneNumber: string;
     maxCapacity: string;
+    colour: string;
   }

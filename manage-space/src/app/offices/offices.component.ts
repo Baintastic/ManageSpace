@@ -22,7 +22,8 @@ export class OfficesComponent implements OnInit {
       physicalAddress: '5 Royale Rd',
       emailAddress: 'spec@gmail.com',
       phoneNumber: '0312394999',
-      maxCapacity: '6'
+      maxCapacity: '6',
+      colour: 'red'
     },
     {
       id: 2,
@@ -30,7 +31,8 @@ export class OfficesComponent implements OnInit {
       physicalAddress: '8 Royale Rd',
       emailAddress: 'carbon@gmail.com',
       phoneNumber: '0312394888',
-      maxCapacity: '15'
+      maxCapacity: '15',
+      colour: 'red'
     },
     {
       id: 3,
@@ -38,7 +40,8 @@ export class OfficesComponent implements OnInit {
       physicalAddress: '5 Royale Rd',
       emailAddress: 'spec@gmail.com',
       phoneNumber: '0312394999',
-      maxCapacity: '6'
+      maxCapacity: '6',
+      colour: 'red'
     },
     {
       id: 4,
@@ -46,7 +49,8 @@ export class OfficesComponent implements OnInit {
       physicalAddress: '8 Royale Rd',
       emailAddress: 'carbon@gmail.com',
       phoneNumber: '0312394888',
-      maxCapacity: '15'
+      maxCapacity: '15',
+      colour: 'red'
     },
     {
       id: 5,
@@ -54,7 +58,8 @@ export class OfficesComponent implements OnInit {
       physicalAddress: '5 Royale Rd',
       emailAddress: 'spec@gmail.com',
       phoneNumber: '0312394999',
-      maxCapacity: '6'
+      maxCapacity: '6',
+      colour: 'red'
     },
     {
       id: 2,
@@ -62,7 +67,8 @@ export class OfficesComponent implements OnInit {
       physicalAddress: '8 Royale Rd',
       emailAddress: 'carbon@gmail.com',
       phoneNumber: '0312394888',
-      maxCapacity: '15'
+      maxCapacity: '15',
+      colour: 'red'
     },
     ]
   }
