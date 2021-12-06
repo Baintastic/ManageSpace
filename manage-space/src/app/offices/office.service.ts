@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
 import { Office } from '../models/office';
 
 @Injectable({
@@ -16,23 +15,23 @@ export class OfficeService {
     this.officeRef = afs.collection(this.dbPath);
   }
 
-  getbyId(id: string) {
+  getOfficebyId(id: string) {
     return this.officeRef.doc(id).get();
   }
 
-  getAll() {
+  getAllOffices() {
     return this.officeRef.snapshotChanges();
   }
 
-  create(office: Office): any {
+  createOffice(office: Office): any {
     return this.officeRef.add(office);
   }
 
-  update(id: string, data: any): Promise<void> {
+  updateOffice(id: string, data: any): Promise<void> {
     return this.officeRef.doc(id).update(data);
   }
 
-  delete(id: string): Promise<void> {
+  deleteOffice(id: string): Promise<void> {
     return this.officeRef.doc(id).delete();
   }
 }

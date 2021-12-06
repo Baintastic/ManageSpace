@@ -40,7 +40,7 @@ export class AddEditOfficeComponent implements OnInit {
     else {
       this.isAddMode = false;
       this.officeId = this.route.snapshot.paramMap.get('id')!;
-      this.officeService.getbyId(this.officeId).subscribe(data => {
+      this.officeService.getOfficebyId(this.officeId).subscribe(data => {
         this.selectedOffice = data.data() as Office;
 
         this.officeForm.get('name')?.setValue(this.selectedOffice?.name);
@@ -67,7 +67,7 @@ export class AddEditOfficeComponent implements OnInit {
 
   addNewOffice(): void {
     var office = this.getofficeFormvalues();
-    this.officeService.create(office).then(() => {
+    this.officeService.createOffice(office).then(() => {
       console.log('Created new office successfully!');
     });
   }
@@ -75,7 +75,7 @@ export class AddEditOfficeComponent implements OnInit {
   updateOfficeDetails(): void {
     var office = this.getofficeFormvalues();
     if (this.selectedOffice) {
-      this.officeService.update(this.officeId, office)
+      this.officeService.updateOffice(this.officeId, office)
         .then(() => console.log('Updated office details successfully!'))
         .catch(err => console.log(err));
     }

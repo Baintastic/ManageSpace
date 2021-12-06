@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { StaffMember } from 'src/app/models/staff-member';
 import { Location } from '@angular/common';
+import { MemberService } from '../member.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-edit-staff-member',
@@ -10,7 +12,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./add-edit-staff-member.component.css']
 })
 export class AddEditStaffMemberComponent implements OnInit {
-  @Input() staffmember?: StaffMember;
+  @Input() staffmember?: any;
 
   isAddMode: boolean = true;
   memberForm: FormGroup = this.formBuilder.group({
@@ -20,32 +22,28 @@ export class AddEditStaffMemberComponent implements OnInit {
   });
   avatars: string[] = [];
   selectedAvatar: string = '';
-  staffMemberDetails?: StaffMember;
+  selectedStaffMember?: StaffMember;
   currentTab: number = 0;
+  memberId: string = '';
 
-  constructor(private formBuilder: FormBuilder, private location: Location, public activeModal: NgbActiveModal) { }
+  constructor(private formBuilder: FormBuilder, private location: Location, public activeModal: NgbActiveModal, private memberService: MemberService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    console.log(this.staffmember);
-    if (!this.isAddMode) {
-      this.staffMemberDetails = {
-        id: 1,
-        firstName: 'Specno',
-        lastName: '5 Royale Rd',
-        avatar: 'yellow'
-      };
+    if (this.staffmember === undefined) {
+      this.isAddMode = true;
+    } else {
+      this.memberId = this.staffmember?.id!;
+      this.memberService.getMemberbyId(this.memberId).subscribe(data => {
+        this.selectedStaffMember = data.data() as StaffMember;
 
-      this.memberForm.get('firstName')?.setValue(this.staffMemberDetails.firstName);
-      this.memberForm.get('lastName')?.setValue(this.staffMemberDetails.lastName);
-      this.memberForm.get('avatar')?.setValue(this.staffMemberDetails.avatar);
-
-      if (this.staffMemberDetails !== null) {
-        this.selectedAvatar = this.staffMemberDetails.avatar;
-      }
+        this.memberForm.get('firstName')?.setValue(this.selectedStaffMember?.firstName);
+        this.memberForm.get('lastName')?.setValue(this.selectedStaffMember?.lastName);
+        this.memberForm.get('avatar')?.setValue(this.selectedStaffMember?.avatar);
+        this.selectedAvatar = this.selectedStaffMember?.avatar!;
+      })
     }
-    // Current tab is set to be the first tab (0)
-    this.showTab(this.currentTab); // Display the current tab
-    this.avatars = ['../../images/avatar1.png', '../../images/avatar1.png', '../../images/avatar1.png', '../../images/avatar1.png', '../../images/avatar1.png', '../../images/avatar1.png', '../../images/avatar1.png'];
+    this.showTab(this.currentTab);
+    this.avatars = ['orange', 'pink', 'orangered', 'brown', 'yellow', 'darkorchid', 'lightblue'];
   }
 
   get f() { return this.memberForm?.controls; }
@@ -60,17 +58,34 @@ export class AddEditStaffMemberComponent implements OnInit {
   }
 
   addStaffMember(): void {
-    console.log('office add');
+    var member = this.getofficeFormvalues();
+    this.memberService.createMember(member).then(() => {
+      console.log('Created new member successfully!');
+    });
   }
 
   updateStaffMember(): void {
-    console.log('office updated');
+    var member = this.getofficeFormvalues();
+    if (this.selectedStaffMember) {
+      this.memberService.updateMember(this.memberId, member)
+        .then(() => console.log('Updated member details successfully!'))
+        .catch(err => console.log(err));
+    }
   }
 
   goBack(): void {
     this.location.back();
   }
 
+  getofficeFormvalues(): StaffMember {
+    var office: StaffMember = {
+      firstName: this.memberForm.value.firstName,
+      lastName: this.memberForm.value.lastName,
+      officeId: this.staffmember.officeId,
+      avatar: this.memberForm.value.avatar,
+    };
+    return office;
+  }
 
   showTab(n: number) {
     // This function will display the specified tab of the form ...
@@ -82,12 +97,12 @@ export class AddEditStaffMemberComponent implements OnInit {
     var title = document.getElementById("title");
 
     if (prevBtn) {
-      if(n == 0){
+      if (n == 0) {
         prevBtn.style.display = 'none';
         title?.classList.remove('col-10');
         title?.classList.add('col-12');
       }
-      else{
+      else {
         prevBtn.style.display = 'inline';
         title?.classList.remove('col-12');
         title?.classList.add('col-10');
@@ -114,14 +129,10 @@ export class AddEditStaffMemberComponent implements OnInit {
     // Increase or decrease the current tab by 1:
     this.currentTab = this.currentTab + n;
     // if you have reached the end of the form... :
-    if (this.currentTab >= tab.length) {
-      //...the form gets submitted:
-      var memberForm = document.getElementById('memberForm');
-      // if(memberForm){
-      //   memberForm.onsubmit();
-      // }
-      // document.getElementById("memberForm").submit();
-      return ;
+    if (this.currentTab + 1 > tab.length) {
+      this.onSubmit();
+      this.activeModal.dismiss('Cross click')
+      return;
     }
     // Otherwise, display the correct tab:
     this.showTab(this.currentTab);

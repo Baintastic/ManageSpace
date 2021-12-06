@@ -54,3 +54,17 @@
 .step-pointer {
     text-align: center !important;
 }
+
+.form-check-input[type=radio] {
+    width: 4rem;
+    height: 3rem;
+}
+
+.form-check {
+    min-height: 3.5rem;
+    padding-right: 3.5em;
+}
+
+.form-check-input:checked[type=radio] {
+    background-image: none;
+}

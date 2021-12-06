@@ -17,7 +17,6 @@ import { AddEditOfficeComponent } from './offices/add-edit-office/add-edit-offic
 import { StaffMembersComponent } from './staff-members/staff-members.component';
 import { AddEditStaffMemberComponent } from './staff-members/add-edit-staff-member/add-edit-staff-member.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { OfficeColourComponent } from './offices/office-colour/office-colour.component';
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import {  AngularFirestoreModule } from '@angular/fire/compat/firestore';
@@ -35,7 +34,6 @@ export const firebaseConfig = environment.firebaseConfig;
     AddEditOfficeComponent,
     StaffMembersComponent,
     AddEditStaffMemberComponent,
-    OfficeColourComponent
   ],
   imports: [
     BrowserModule,

@@ -28,7 +28,7 @@ export class OfficeDetailComponent implements OnInit {
 
   getOfficeDetails(): void {
     this.officeId = this.route.snapshot.paramMap.get('id')!;
-    this.officeService.getbyId(this.officeId).subscribe(data => {
+    this.officeService.getOfficebyId(this.officeId).subscribe(data => {
       this.office = data.data() as Office;
     })
   }

@@ -18,7 +18,7 @@ export class OfficesComponent implements OnInit {
   }
 
   getAllOffices(): void {
-    this.officeService.getAll().subscribe(data => {
+    this.officeService.getAllOffices().subscribe(data => {
       this.offices = data.map(e => {
         return {
           id: e.payload.doc.id,

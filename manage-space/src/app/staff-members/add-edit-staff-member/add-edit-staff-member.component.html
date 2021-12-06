@@ -41,13 +41,13 @@
                         <h1><strong>Avatar</strong></h1>
                     </div>
                 </div>
-                <!-- <div class="row">
-                        <div class="col mt-2 d-flex justify-content-evenly" *ngFor="let avatar of avatars">
-                            <div class="form-check">
-                                <input class="form-check-input" [style.background-u]="color" type="radio" [value]="color" formControlName="colour" [checked]="(avatar === selectedColour)">
-                            </div>
+                <div class="row">
+                    <div class="col-3 mt-2 d-flex justify-content-evenly" *ngFor="let avatar of avatars">
+                        <div class="form-check">
+                            <input class="form-check-input" [style.background-color]="avatar" type="radio" [value]="avatar" formControlName="avatar" [checked]="(avatar === selectedAvatar)">
                         </div>
-                    </div> -->
+                    </div>
+                </div>
             </div>
 
             <div class="step-pointer">
