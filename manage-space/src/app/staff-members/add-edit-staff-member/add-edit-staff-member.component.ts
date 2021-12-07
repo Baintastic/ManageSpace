@@ -27,6 +27,7 @@ export class AddEditStaffMemberComponent implements OnInit {
   selectedAvatar: string = '';
   selectedStaffMember?: StaffMember;
   currentTab: number = 0;
+  isSpinnerLoading: boolean = false;
 
   constructor(private formBuilder: FormBuilder,
     private location: Location,
@@ -37,10 +38,12 @@ export class AddEditStaffMemberComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.isAddMode) {
+      this.isSpinnerLoading = true;
       this.isAddMode = false;
       this.memberService.getMemberbyId(this.memberId).subscribe(data => {
         this.selectedStaffMember = data.data() as StaffMember;
         this.bindValuesToMemberForm();
+        this.isSpinnerLoading = false;
       })
     }
     this.showTab(this.currentTab);
@@ -65,6 +68,7 @@ export class AddEditStaffMemberComponent implements OnInit {
   }
 
   addStaffMember(): void {
+    this.isSpinnerLoading = true;
     var member = this.getMemberFormvalues();
     this.memberService.createMember(member).then(() => {
       console.log('Created new member successfully!');
@@ -75,7 +79,10 @@ export class AddEditStaffMemberComponent implements OnInit {
         office.maxCapacity = newMaxCapacity.toString();
 
         this.officeService.updateOffice(member.officeId, office)
-          .then(() => console.log('Updated office details successfully!'))
+          .then(() => {
+            console.log('Updated office details successfully!');
+            this.isSpinnerLoading = false;
+          })
           .catch(err => console.log(err));
         this.router.navigate(['/detail/', this.officeId]);
       })
@@ -83,10 +90,14 @@ export class AddEditStaffMemberComponent implements OnInit {
   }
 
   updateStaffMember(): void {
+    this.isSpinnerLoading = true;
     var member = this.getMemberFormvalues();
     if (this.selectedStaffMember) {
       this.memberService.updateMember(this.memberId, member)
-        .then(() => console.log('Updated member details successfully!'))
+        .then(() => {
+          console.log('Updated member details successfully!');
+          this.isSpinnerLoading = false;
+        })
         .catch(err => console.log(err));
     }
   }

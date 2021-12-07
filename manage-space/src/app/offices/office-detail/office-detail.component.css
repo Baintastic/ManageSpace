@@ -2,3 +2,10 @@
     text-align: center!important;
     padding-right: 60px;
 }
+
+.spinner {
+    z-index: 10;
+    position: fixed;
+    right: 170px;
+    top: 370px;
+}

@@ -4,3 +4,10 @@
     right: 20px;
     top: 500px;
 }
+
+.spinner {
+    z-index: 10;
+    position: fixed;
+    right: 170px;
+    top: 370px;
+}

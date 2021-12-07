@@ -50,3 +50,22 @@ body {
     border-color: #5e5e5e;
     border-width: 4px;
 }
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #57b0e4;
+    border-color: #57b0e4;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #57b0e4;
+    border-color: #57b0e4;
+}
+
+.spinner {
+    z-index: 10;
+    position: fixed;
+    right: 170px;
+    top: 370px;
+}

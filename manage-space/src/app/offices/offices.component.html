@@ -7,5 +7,6 @@
             <app-office [office]="office"></app-office>
         </div>
     </div>
+    <mat-spinner class="spinner" [diameter]="45" *ngIf="isSpinnerLoading"></mat-spinner>
 </div>
 <button mat-fab color="basic" class="add-btn" routerLink="/add-office">+</button>

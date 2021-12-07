@@ -26,6 +26,7 @@ export class AddEditOfficeComponent implements OnInit {
   selectedColour: string = '';
   selectedOffice?: Office;
   officeId: string = '';
+  isSpinnerLoading: boolean = true;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,8 +38,9 @@ export class AddEditOfficeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if (this.router.url.includes("/add-office")) {
-      this.isAddMode = true;
+    if (this.router.url.includes("/add-office")) { 
+        this.isSpinnerLoading = false;
+        this.isAddMode = true;
     }
     else {
       this.isAddMode = false;
@@ -46,6 +48,7 @@ export class AddEditOfficeComponent implements OnInit {
       this.officeService.getOfficebyId(this.officeId).subscribe(data => {
         this.selectedOffice = data.data() as Office;
         this.bindValuesToOfficeForm();
+        this.isSpinnerLoading = false;
       })
     }
     this.colors = ['orange', 'pink', 'orangered', 'brown', 'yellow', 'darkorchid', 'lightblue', 'green', 'lightskyblue', 'blue', 'slateblue'];
@@ -72,20 +75,24 @@ export class AddEditOfficeComponent implements OnInit {
   }
 
   addNewOffice(): void {
+    this.isSpinnerLoading = true;
     var office = this.getOfficeFormvalues();
     this.officeService.createOffice(office)
       .then(() => {
         console.log('Created new office successfully!');
+        this.isSpinnerLoading = false;
         this.router.navigate(['/offices']);
       }).catch((err: any) => console.log(err));
   }
 
   updateOfficeDetails(): void {
+    this.isSpinnerLoading = true;
     var office = this.getOfficeFormvalues();
     if (this.selectedOffice) {
       this.officeService.updateOffice(this.officeId, office)
         .then(() => {
           console.log('Updated office details successfully!')
+          this.isSpinnerLoading = false;
           this.router.navigate(['/offices']);
         }).catch(err => console.log(err));
     }
@@ -108,6 +115,7 @@ export class AddEditOfficeComponent implements OnInit {
   }
 
   deleteOffice(): void {
+    this.isSpinnerLoading = true;
     //Get and delete all office staff members before deleting an office
     this.memberService.getAllMembersByOfficeId(this.officeId).subscribe(data => {
       var staffMembers = data.map(e => {
@@ -124,6 +132,7 @@ export class AddEditOfficeComponent implements OnInit {
       this.officeService.deleteOffice(this.officeId)
         .then(() => {
           console.log('Deleted office successfully!');
+          this.isSpinnerLoading = false;
           this.router.navigate(['/offices']);
         }).catch(err => console.log(err));
     });

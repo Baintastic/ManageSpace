@@ -12,6 +12,7 @@ import { OfficeService } from '../office.service';
 export class OfficeDetailComponent implements OnInit {
   office: Office | undefined;
   officeId: string = '';
+  isSpinnerLoading: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -27,6 +28,7 @@ export class OfficeDetailComponent implements OnInit {
     this.officeId = this.route.snapshot.paramMap.get('id')!;
     this.officeService.getOfficebyId(this.officeId).subscribe(data => {
       this.office = data.data() as Office;
+      this.isSpinnerLoading = false;
     })
   }
 

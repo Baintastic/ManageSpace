@@ -16,3 +16,15 @@
 .modal-header {
     padding-bottom: 0em;
 }
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #57b0e4;
+    border-color: #57b0e4;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #57b0e4;
+    border-color: #57b0e4;
+}

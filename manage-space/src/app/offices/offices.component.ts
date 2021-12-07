@@ -10,6 +10,7 @@ import { OfficeService } from './office.service';
 })
 export class OfficesComponent implements OnInit {
   offices: Office[] = [];
+  isSpinnerLoading: boolean = true;
 
   constructor(private officeService: OfficeService) { }
 
@@ -25,6 +26,7 @@ export class OfficesComponent implements OnInit {
           ...e.payload.doc.data() as Office
         }
       })
+      this.isSpinnerLoading = false;
     });
   }
 }

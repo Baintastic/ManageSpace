@@ -67,3 +67,22 @@
 .form-check-input:checked[type=radio] {
     background-image: none;
 }
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #57b0e4;
+    border-color: #57b0e4;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #57b0e4;
+    border-color: #57b0e4;
+}
+
+.spinner {
+    z-index: 10;
+    position: fixed;
+    right: 170px;
+    top: 370px;
+}
