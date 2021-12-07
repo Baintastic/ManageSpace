@@ -25,10 +25,10 @@
                 </td>
                 <td>{{member?.firstName}} {{member?.lastName}}</td>
                 <td>
-                    <mat-icon (click)="open(member)">more_vert</mat-icon>
+                    <mat-icon (click)="openOptionsModal(member, member?.id)">more_vert</mat-icon>
                 </td>
             </tr>
         </tbody>
     </table>
 </div>
-<button mat-fab color="basic" class="add-btn" (click)="open()">+</button>
+<button mat-fab color="basic" class="add-btn" (click)="openAddMemberModal()">+</button>

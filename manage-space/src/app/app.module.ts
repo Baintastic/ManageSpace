@@ -22,6 +22,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import {  AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { MemberOptionsComponent } from './staff-members/member-options/member-options.component';
 
 export const firebaseConfig = environment.firebaseConfig;
 
@@ -34,6 +35,7 @@ export const firebaseConfig = environment.firebaseConfig;
     AddEditOfficeComponent,
     StaffMembersComponent,
     AddEditStaffMemberComponent,
+    MemberOptionsComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,14 @@
+.delete-button {
+    width: 18em;
+    height: 3em;
+}
+
+.tab {
+    display: none;
+}
+
+.delete-btn-primary {
+    color: #0d6efd;
+    background-color: #fff;
+    border-color: #fff;
+}
