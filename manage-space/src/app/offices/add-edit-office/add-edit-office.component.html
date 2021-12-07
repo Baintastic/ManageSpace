@@ -78,7 +78,7 @@
         </div>
         <div class="row mt-4" *ngIf="!isAddMode">
             <div class="col d-flex justify-content-center">
-                <button type="button" class="btn delete-btn-primary add-button rounded-pill" type="submit">{{ 'DELETE OFFICE'}}</button>
+                <button type="button" class="btn delete-btn-primary add-button rounded-pill" (click)="deleteOffice()">{{ 'DELETE OFFICE'}}</button>
             </div>
         </div>
     </form>

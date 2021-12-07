@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Office } from 'src/app/models/office';
 
 @Component({
@@ -12,7 +13,7 @@ export class OfficeComponent implements OnInit {
   randomColor: string = "";
   officeId: string = '';
 
-  constructor() { }
+  constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.officeId = this.office?.id!;
@@ -20,5 +21,16 @@ export class OfficeComponent implements OnInit {
 
   stateChanged(event: any) {
     this.panelOpenState = !this.panelOpenState;
+  }
+
+  goToEditOffice(){
+    if (this.router.url.includes("/offices")) {
+      this.router.navigate(['/detail/', this.officeId]);
+
+    }
+    else{
+      this.router.navigate(['/edit-office/', this.officeId]);
+
+    }
   }
 }

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Office } from 'src/app/models/office';
 import { StaffMember } from 'src/app/models/staff-member';
 import { OfficeService } from 'src/app/offices/office.service';
 import { AddEditStaffMemberComponent } from '../add-edit-staff-member/add-edit-staff-member.component';
@@ -15,14 +16,12 @@ export class MemberOptionsComponent implements OnInit {
   @Input() officeId!: string;
   @Input() memberId!: string;
 
-  staffMembers: StaffMember[] = [];
-
   isDeleteMode: boolean = false;
   currentTab: number = 0;
 
   constructor(private modalService: NgbModal,
-     public activeModal: NgbActiveModal, 
-     private memberService: MemberService,
+    public activeModal: NgbActiveModal,
+    private memberService: MemberService,
     private officeService: OfficeService,) { }
 
   ngOnInit(): void {
@@ -71,7 +70,7 @@ export class MemberOptionsComponent implements OnInit {
     tabs[this.currentTab].style.display = 'none';
     // Increase or decrease the current tab by 1:
     this.currentTab = this.currentTab + tabNumber;
-   
+
     // Otherwise, display the correct tab:
     this.showTab(this.currentTab);
   }
@@ -87,32 +86,44 @@ export class MemberOptionsComponent implements OnInit {
   }
 
   deleteOffice() {
-
+    //Get and delete all office staff members before deleting an office
     this.memberService.getAllMembers(this.officeId).subscribe(data => {
-      this.staffMembers = data.map(e => {
+      var staffMembers = data.map(e => {
         return {
           id: e.payload.doc.id,
           ...e.payload.doc.data() as StaffMember
         }
       })
-      this.staffMembers.forEach(member => {
+
+      staffMembers.forEach(member => {
         this.deleteStaffMember();
-        
       });
+
       this.officeService.deleteOffice(this.officeId)
         .then(() => console.log('Deleted office successfully!')
         )
         .catch(err => console.log(err));
     });
-    
+
   }
 
   deleteStaffMember() {
-    this.memberService.deleteMember(this.memberId)
-        .then(() => console.log('Deleted staff successfully!')
-        )
+    //Get office details and update number of total staff members
+    this.officeService.getOfficebyId(this.officeId).subscribe(data => {
+      var office = data.data() as Office;
+      var newMaxCapacity: number = +office.maxCapacity - 1;
+      office.maxCapacity = newMaxCapacity.toString();
+
+      this.officeService.updateOffice(this.officeId, office)
+        .then(() => console.log('Updated office details successfully!'))
         .catch(err => console.log(err));
-        this.activeModal.dismiss('Cross click');
+    })
+
+    this.memberService.deleteMember(this.memberId)
+      .then(() => console.log('Deleted staff successfully!')
+      )
+      .catch(err => console.log(err));
+    this.activeModal.dismiss('Cross click');
   }
 
   openEditMemberModal() {

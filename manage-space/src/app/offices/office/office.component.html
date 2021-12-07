@@ -6,10 +6,10 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-10">
-                            <h2 class="card-title" [routerLink]="['/detail', this.officeId]"><strong>{{office?.name}}</strong></h2>
+                            <h2 class="card-title"><strong>{{office?.name}}</strong></h2>
                         </div>
                         <div class="col-2">
-                            <mat-icon [routerLink]="['/edit-office', this.officeId]">edit</mat-icon>
+                            <mat-icon (click)="goToEditOffice()">edit</mat-icon>
                         </div>
                     </div>
                     <div class="row">

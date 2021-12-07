@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Office } from 'src/app/models/office';
 import { Location } from '@angular/common';
 import { OfficeService } from '../office.service';
+import { StaffMember } from 'src/app/models/staff-member';
+import { MemberService } from 'src/app/staff-members/member.service';
 
 @Component({
   selector: 'app-add-edit-office',
@@ -29,8 +31,9 @@ export class AddEditOfficeComponent implements OnInit {
     private formBuilder: FormBuilder,
     private location: Location,
     private route: ActivatedRoute,
+    private memberService: MemberService,
     private officeService: OfficeService,
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -66,14 +69,14 @@ export class AddEditOfficeComponent implements OnInit {
   }
 
   addNewOffice(): void {
-    var office = this.getofficeFormvalues();
+    var office = this.getOfficeFormvalues();
     this.officeService.createOffice(office).then(() => {
       console.log('Created new office successfully!');
     });
   }
 
   updateOfficeDetails(): void {
-    var office = this.getofficeFormvalues();
+    var office = this.getOfficeFormvalues();
     if (this.selectedOffice) {
       this.officeService.updateOffice(this.officeId, office)
         .then(() => console.log('Updated office details successfully!'))
@@ -85,7 +88,7 @@ export class AddEditOfficeComponent implements OnInit {
     this.location.back();
   }
 
-  getofficeFormvalues(): Office {
+  getOfficeFormvalues(): Office {
     var office: Office = {
       name: this.officeForm.value.name,
       phoneNumber: this.officeForm.value.phoneNumber,
@@ -95,6 +98,34 @@ export class AddEditOfficeComponent implements OnInit {
       colour: this.officeForm.value.colour,
     };
     return office;
+  }
+
+  deleteOffice(): void{
+    //Get and delete all office staff members before deleting an office
+    this.memberService.getAllMembers(this.officeId).subscribe(data => {
+      var staffMembers = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          ...e.payload.doc.data() as StaffMember
+        }
+      })
+
+      staffMembers.forEach(member => {
+        this.deleteStaffMember(member.id);
+      });
+
+      this.officeService.deleteOffice(this.officeId)
+        .then(() => console.log('Deleted office successfully!')
+        )
+        .catch(err => console.log(err));
+    });
+  }
+
+  deleteStaffMember(memberId: string) {
+    this.memberService.deleteMember(memberId)
+      .then(() => console.log('Deleted staff successfully!')
+      )
+      .catch(err => console.log(err));
   }
 
 }
