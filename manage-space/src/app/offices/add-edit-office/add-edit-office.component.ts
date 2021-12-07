@@ -70,17 +70,21 @@ export class AddEditOfficeComponent implements OnInit {
 
   addNewOffice(): void {
     var office = this.getOfficeFormvalues();
-    this.officeService.createOffice(office).then(() => {
-      console.log('Created new office successfully!');
-    });
+    this.officeService.createOffice(office)
+      .then(() => {
+        console.log('Created new office successfully!');
+        this.router.navigate(['/offices']);
+      }).catch((err: any) => console.log(err));
   }
 
   updateOfficeDetails(): void {
     var office = this.getOfficeFormvalues();
     if (this.selectedOffice) {
       this.officeService.updateOffice(this.officeId, office)
-        .then(() => console.log('Updated office details successfully!'))
-        .catch(err => console.log(err));
+        .then(() => {
+          console.log('Updated office details successfully!')
+          this.router.navigate(['/offices']);
+        }).catch(err => console.log(err));
     }
   }
 
@@ -100,7 +104,7 @@ export class AddEditOfficeComponent implements OnInit {
     return office;
   }
 
-  deleteOffice(): void{
+  deleteOffice(): void {
     //Get and delete all office staff members before deleting an office
     this.memberService.getAllMembers(this.officeId).subscribe(data => {
       var staffMembers = data.map(e => {
@@ -115,17 +119,17 @@ export class AddEditOfficeComponent implements OnInit {
       });
 
       this.officeService.deleteOffice(this.officeId)
-        .then(() => console.log('Deleted office successfully!')
-        )
-        .catch(err => console.log(err));
+        .then(() => {
+          console.log('Deleted office successfully!');
+          this.router.navigate(['/offices']);
+        }).catch(err => console.log(err));
     });
   }
 
   deleteStaffMember(memberId: string) {
     this.memberService.deleteMember(memberId)
       .then(() => console.log('Deleted staff successfully!')
-      )
-      .catch(err => console.log(err));
+      ).catch(err => console.log(err));
   }
 
 }

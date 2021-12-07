@@ -49,7 +49,7 @@ export class AddEditStaffMemberComponent implements OnInit {
         this.memberForm.get('avatar')?.setValue(this.selectedStaffMember?.avatar);
         this.selectedAvatar = this.selectedStaffMember?.avatar!;
       })
-    } 
+    }
     this.showTab(this.currentTab);
     this.avatars = ['orange', 'pink', 'orangered', 'brown', 'yellow', 'darkorchid', 'lightblue'];
   }
@@ -83,12 +83,12 @@ export class AddEditStaffMemberComponent implements OnInit {
   }
 
   updateStaffMember(): void {
-    // var member = this.getMemberFormvalues();
-    // if (this.selectedStaffMember) {
-    //   this.memberService.updateMember(this.memberId, member)
-    //     .then(() => console.log('Updated member details successfully!'))
-    //     .catch(err => console.log(err));
-    // }
+    var member = this.getMemberFormvalues();
+    if (this.selectedStaffMember) {
+      this.memberService.updateMember(this.memberId, member)
+        .then(() => console.log('Updated member details successfully!'))
+        .catch(err => console.log(err));
+    }
   }
 
   goBack(): void {
@@ -108,16 +108,15 @@ export class AddEditStaffMemberComponent implements OnInit {
   showTab(tabNumber: number): void {
     // This function will display the specified tab of the form ...
     var tabs = Array.from(document.getElementsByClassName('tab') as HTMLCollectionOf<HTMLElement>)
-    //for some reason , one of the tabs from the previous html modal gets picked up so we need to remove the first element
-    if(!this.isAddMode){
+    //for some reason , two of the tabs from the previous html modal get picked up so we get the first tab on the current modal
+
+    if (tabs.length > 2) {
+      tabs[tabNumber + 2].style.display = "block";
+    }
+    else {
       tabs[tabNumber].style.display = "block";
     }
-    else{
-      tabs[tabNumber].style.display = "block";
 
-    }
-
-    // ... and fix the Previous/Next buttons:
     var prevBtn = document.getElementById('prevBtn');
     var title = document.getElementById("title");
 
@@ -140,7 +139,6 @@ export class AddEditStaffMemberComponent implements OnInit {
       nextBtn.innerHTML = (tabNumber == (tabs.length - 1)) ? `${btnText}` : 'NEXT';
     }
 
-    // ... and run a function that displays the correct step indicator:
     this.fixStepIndicator(tabNumber)
   }
 
@@ -148,8 +146,7 @@ export class AddEditStaffMemberComponent implements OnInit {
 
     // This function will figure out which tab to display
     var tabs = Array.from(document.getElementsByClassName('tab') as HTMLCollectionOf<HTMLElement>)
-    // Exit the function if any field in the current tab is invalid:
-    // if (n == 1 && !validateForm()) return false;
+
     // Hide the current tab:
     tabs[this.currentTab].style.display = 'none';
     // Increase or decrease the current tab by 1:

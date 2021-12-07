@@ -6,7 +6,7 @@
             </a>
         </div>
         <div id="title" class="col-10">
-            <h2 class="modal-title" id="modal-basic-title"><strong>New Staff member</strong></h2>
+            <h2 class="modal-title" id="modal-basic-title"><strong>{{ isAddMode ? 'New Staff member' : 'Edit Staff member'}}</strong></h2>
         </div>
     </div>
     <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">

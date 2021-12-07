@@ -36,12 +36,4 @@ export class OfficeDetailComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
-
-  deleteStaffMember(): void {
-    console.log('deleted office');
-  }
-
-  deleteOffice(): void {
-    console.log('deleted all staff members and office ');
-  }
 }

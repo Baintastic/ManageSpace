@@ -7,8 +7,12 @@
     display: none;
 }
 
-.delete-btn-primary {
+.delete-btn-primary.delete-button {
     color: #0d6efd;
     background-color: #fff;
     border-color: #fff;
+}
+
+.modal-header {
+    padding-bottom: 0em;
 }

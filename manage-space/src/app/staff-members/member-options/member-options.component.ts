@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Office } from 'src/app/models/office';
 import { StaffMember } from 'src/app/models/staff-member';
@@ -22,7 +23,8 @@ export class MemberOptionsComponent implements OnInit {
   constructor(private modalService: NgbModal,
     public activeModal: NgbActiveModal,
     private memberService: MemberService,
-    private officeService: OfficeService,) { }
+    private officeService: OfficeService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.showTab(this.currentTab);
@@ -33,7 +35,6 @@ export class MemberOptionsComponent implements OnInit {
     var tab = Array.from(document.getElementsByClassName('tab') as HTMLCollectionOf<HTMLElement>)
     tab[tabNumber].style.display = "block";
 
-    // ... and fix the Previous/Next buttons:
     var prevBtn = document.getElementById('prevBtn');
     var title = document.getElementById("title");
 
@@ -50,22 +51,14 @@ export class MemberOptionsComponent implements OnInit {
       }
     }
 
-    // var nextBtn = document.getElementById('nextBtn');
-    // if (nextBtn) {
-    //   var btnText = this.isDeleteMode ? 'ADD STAFF MEMBER' : 'Keep office';
-    //   nextBtn.innerHTML = (tabNumber == (tab.length - 1)) ? `${btnText}` : 'NEXT';
-    // }
-
-    // ... and run a function that displays the correct step indicator:
     this.fixStepIndicator(tabNumber)
   }
 
   nextPrev(tabNumber: number): void {
-
+    this.isDeleteMode = tabNumber == 1 ? true : false;
     // This function will figure out which tab to display
     var tabs = Array.from(document.getElementsByClassName('tab') as HTMLCollectionOf<HTMLElement>)
-    // Exit the function if any field in the current tab is invalid:
-    // if (n == 1 && !validateForm()) return false;
+
     // Hide the current tab:
     tabs[this.currentTab].style.display = 'none';
     // Increase or decrease the current tab by 1:
@@ -100,9 +93,10 @@ export class MemberOptionsComponent implements OnInit {
       });
 
       this.officeService.deleteOffice(this.officeId)
-        .then(() => console.log('Deleted office successfully!')
-        )
-        .catch(err => console.log(err));
+      .then(() => {
+        console.log('Deleted office successfully!');
+        this.router.navigate(['/offices']);
+      }).catch(err => console.log(err));
     });
 
   }
@@ -120,10 +114,11 @@ export class MemberOptionsComponent implements OnInit {
     })
 
     this.memberService.deleteMember(this.memberId)
-      .then(() => console.log('Deleted staff successfully!')
-      )
-      .catch(err => console.log(err));
-    this.activeModal.dismiss('Cross click');
+      .then(() => {
+        console.log('Deleted staff successfully!');
+        this.activeModal.dismiss('Cross click');
+      }).catch(err => console.log(err));
+    
   }
 
   openEditMemberModal() {

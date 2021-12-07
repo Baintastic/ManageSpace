@@ -4,3 +4,24 @@
     right: 20px;
     top: 500px;
 }
+
+.avatar-circle {
+    display: block;
+    height: 38px;
+    width: 42px;
+    border-radius: 50%;
+    line-height: 50px;
+}
+
+td {
+    padding: 5px;
+}
+
+
+/* hide the blue outline */
+
+.form-control:focus {
+    outline: 0 !important;
+    border-color: initial;
+    box-shadow: none;
+}

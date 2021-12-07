@@ -48,6 +48,5 @@ body {
 .form-check-input:checked {
     background-color: #5e5e5e;
     border-color: #5e5e5e;
-    border-width: 3px;
-    ;
+    border-width: 4px;
 }

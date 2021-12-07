@@ -26,11 +26,10 @@ export class OfficeComponent implements OnInit {
   goToEditOffice(){
     if (this.router.url.includes("/offices")) {
       this.router.navigate(['/detail/', this.officeId]);
-
     }
     else{
-      this.router.navigate(['/edit-office/', this.officeId]);
-
+      var officeId = this.route.snapshot.paramMap.get('id')!;
+      this.router.navigate(['/edit-office/', officeId]);
     }
   }
 }
