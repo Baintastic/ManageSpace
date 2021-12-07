@@ -4,7 +4,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { StaffMember } from 'src/app/models/staff-member';
 import { Location } from '@angular/common';
 import { MemberService } from '../member.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { OfficeService } from 'src/app/offices/office.service';
 import { Office } from 'src/app/models/office';
 
@@ -14,7 +14,7 @@ import { Office } from 'src/app/models/office';
   styleUrls: ['./add-edit-staff-member.component.css']
 })
 export class AddEditStaffMemberComponent implements OnInit {
-  @Input() staffmember?: any;
+  @Input() memberId!: string;
   @Input() officeId!: string;
   @Input() isAddMode: boolean = false;
 
@@ -27,31 +27,31 @@ export class AddEditStaffMemberComponent implements OnInit {
   selectedAvatar: string = '';
   selectedStaffMember?: StaffMember;
   currentTab: number = 0;
-  memberId: string = '';
 
   constructor(private formBuilder: FormBuilder,
     private location: Location,
     public activeModal: NgbActiveModal,
     private memberService: MemberService,
     private officeService: OfficeService,
-    private route: ActivatedRoute,
     private router: Router) { }
 
   ngOnInit(): void {
     if (!this.isAddMode) {
       this.isAddMode = false;
-      this.memberId = this.staffmember?.id!;
       this.memberService.getMemberbyId(this.memberId).subscribe(data => {
         this.selectedStaffMember = data.data() as StaffMember;
-
-        this.memberForm.get('firstName')?.setValue(this.selectedStaffMember?.firstName);
-        this.memberForm.get('lastName')?.setValue(this.selectedStaffMember?.lastName);
-        this.memberForm.get('avatar')?.setValue(this.selectedStaffMember?.avatar);
-        this.selectedAvatar = this.selectedStaffMember?.avatar!;
+        this.bindValuesToMemberForm();
       })
     }
     this.showTab(this.currentTab);
     this.avatars = ['orange', 'pink', 'orangered', 'brown', 'yellow', 'darkorchid', 'lightblue'];
+  }
+
+   bindValuesToMemberForm(): void  {
+    this.memberForm.get('firstName')?.setValue(this.selectedStaffMember?.firstName);
+    this.memberForm.get('lastName')?.setValue(this.selectedStaffMember?.lastName);
+    this.memberForm.get('avatar')?.setValue(this.selectedStaffMember?.avatar);
+    this.selectedAvatar = this.selectedStaffMember?.avatar!;
   }
 
   get f() { return this.memberForm?.controls; }

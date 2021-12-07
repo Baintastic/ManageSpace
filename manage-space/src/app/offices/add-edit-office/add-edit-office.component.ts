@@ -45,17 +45,20 @@ export class AddEditOfficeComponent implements OnInit {
       this.officeId = this.route.snapshot.paramMap.get('id')!;
       this.officeService.getOfficebyId(this.officeId).subscribe(data => {
         this.selectedOffice = data.data() as Office;
-
-        this.officeForm.get('name')?.setValue(this.selectedOffice?.name);
-        this.officeForm.get('physicalAddress')?.setValue(this.selectedOffice?.physicalAddress);
-        this.officeForm.get('emailAddress')?.setValue(this.selectedOffice?.emailAddress);
-        this.officeForm.get('phoneNumber')?.setValue(this.selectedOffice?.phoneNumber);
-        this.officeForm.get('maxCapacity')?.setValue(this.selectedOffice?.maxCapacity);
-        this.officeForm.get('colour')?.setValue(this.selectedOffice?.colour);
-        this.selectedColour = this.selectedOffice?.colour!;
+        this.bindValuesToOfficeForm();
       })
     }
     this.colors = ['orange', 'pink', 'orangered', 'brown', 'yellow', 'darkorchid', 'lightblue', 'green', 'lightskyblue', 'blue', 'slateblue'];
+  }
+
+  private bindValuesToOfficeForm() {
+    this.officeForm.get('name')?.setValue(this.selectedOffice?.name);
+    this.officeForm.get('physicalAddress')?.setValue(this.selectedOffice?.physicalAddress);
+    this.officeForm.get('emailAddress')?.setValue(this.selectedOffice?.emailAddress);
+    this.officeForm.get('phoneNumber')?.setValue(this.selectedOffice?.phoneNumber);
+    this.officeForm.get('maxCapacity')?.setValue(this.selectedOffice?.maxCapacity);
+    this.officeForm.get('colour')?.setValue(this.selectedOffice?.colour);
+    this.selectedColour = this.selectedOffice?.colour!;
   }
 
   get f() { return this.officeForm?.controls; }
@@ -106,7 +109,7 @@ export class AddEditOfficeComponent implements OnInit {
 
   deleteOffice(): void {
     //Get and delete all office staff members before deleting an office
-    this.memberService.getAllMembers(this.officeId).subscribe(data => {
+    this.memberService.getAllMembersByOfficeId(this.officeId).subscribe(data => {
       var staffMembers = data.map(e => {
         return {
           id: e.payload.doc.id,

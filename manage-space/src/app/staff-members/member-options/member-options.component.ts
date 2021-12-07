@@ -13,7 +13,6 @@ import { MemberService } from '../member.service';
   styleUrls: ['./member-options.component.css']
 })
 export class MemberOptionsComponent implements OnInit {
-  @Input() staffmember?: any;
   @Input() officeId!: string;
   @Input() memberId!: string;
 
@@ -80,7 +79,7 @@ export class MemberOptionsComponent implements OnInit {
 
   deleteOffice() {
     //Get and delete all office staff members before deleting an office
-    this.memberService.getAllMembers(this.officeId).subscribe(data => {
+    this.memberService.getAllMembersByOfficeId(this.officeId).subscribe(data => {
       var staffMembers = data.map(e => {
         return {
           id: e.payload.doc.id,
@@ -124,7 +123,7 @@ export class MemberOptionsComponent implements OnInit {
   openEditMemberModal() {
     this.activeModal.dismiss('Cross click');
     const modalRef = this.modalService.open(AddEditStaffMemberComponent, { centered: true });
-    modalRef.componentInstance.staffmember = this.staffmember;
+    modalRef.componentInstance.memberId = this.memberId;
     modalRef.componentInstance.officeId = this.officeId;
     modalRef.componentInstance.isAddMode = false;
   }

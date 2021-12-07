@@ -19,7 +19,7 @@ export class MemberService {
     return this.memberRef.doc(id).get();
   }
 
-  getAllMembers(officeId: string) {
+  getAllMembersByOfficeId(officeId: string) {
     return this.afs.collection(this.dbPath, ref => ref.where('officeId', '==', officeId)).snapshotChanges();
   }
 

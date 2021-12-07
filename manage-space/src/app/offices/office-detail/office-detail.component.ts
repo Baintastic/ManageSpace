@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Office } from 'src/app/models/office';
-import { StaffMember } from 'src/app/models/staff-member';
 import { Location } from '@angular/common';
 import { OfficeService } from '../office.service';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-office-detail',
@@ -13,7 +11,6 @@ import { map } from 'rxjs/operators';
 })
 export class OfficeDetailComponent implements OnInit {
   office: Office | undefined;
-  staffMembers: StaffMember[] = [];
   officeId: string = '';
 
   constructor(

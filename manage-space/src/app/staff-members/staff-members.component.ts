@@ -30,12 +30,12 @@ export class StaffMembersComponent implements OnInit {
 
   ngOnInit(): void {
     this.officeId = this.route.snapshot.paramMap.get('id')!;
-    this.getOfficeDetail(this.officeId);
+    this.getOfficeDetails(this.officeId);
     this.getAllStaffMembers(this.officeId);
   }
 
   getAllStaffMembers(officeId: string): void {
-    this.memberService.getAllMembers(officeId).subscribe(data => {
+    this.memberService.getAllMembersByOfficeId(officeId).subscribe(data => {
       this.staffMembers = data.map(e => {
         return {
           id: e.payload.doc.id,
@@ -45,15 +45,14 @@ export class StaffMembersComponent implements OnInit {
     });
   }
 
-  getOfficeDetail(officeId: string): void {
+  getOfficeDetails(officeId: string): void {
     this.officeService.getOfficebyId(officeId).subscribe(data => {
       this.office = data.data() as Office;
     })
   }
 
-  openOptionsModal(member: any, memberId: string) {
+  openOptionsModal(memberId: string) {
     const modalRef = this.modalService.open(MemberOptionsComponent, { centered: true });
-    modalRef.componentInstance.staffmember = member;
     modalRef.componentInstance.officeId = this.officeId;
     modalRef.componentInstance.memberId = memberId;
   }
