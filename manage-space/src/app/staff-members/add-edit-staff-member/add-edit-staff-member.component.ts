@@ -7,6 +7,7 @@ import { MemberService } from '../member.service';
 import { Router } from '@angular/router';
 import { OfficeService } from 'src/app/offices/office.service';
 import { OfficeI } from 'src/app/models/office';
+import { WizardHelperService } from 'src/app/services/shared/wizard-helper.service';
 
 @Component({
   selector: 'app-add-edit-staff-member',
@@ -34,6 +35,7 @@ export class AddEditStaffMemberComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private memberService: MemberService,
     private officeService: OfficeService,
+    private wizardHelperService: WizardHelperService,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -47,7 +49,7 @@ export class AddEditStaffMemberComponent implements OnInit {
         this.isSpinnerLoading = false;
       })
     }
-    this.showTab(this.currentTab);
+    this.wizardHelperService.showTab(this.currentTab, this.isAddMode, false);
   }
 
   getAvatarUrls(): string[] {
@@ -130,69 +132,16 @@ export class AddEditStaffMemberComponent implements OnInit {
     return office;
   }
 
-  showTab(tabNumber: number): void {
-    // This function will display the specified tab of the form ...
-    var tabs = Array.from(document.getElementsByClassName('tab') as HTMLCollectionOf<HTMLElement>)
-    //for some reason , two of the tabs from the previous html modal get picked up so we get the first tab on the current modal
-
-    if (tabs.length > 2) {
-      tabs[tabNumber + 2].style.display = "block";
+  nextPrev(tabNumber: number): void {
+    var isLastStep = this.wizardHelperService.isLastStep(tabNumber, this.currentTab)
+    if (isLastStep) {
+      this.onSubmit();
     }
     else {
-      tabs[tabNumber].style.display = "block";
+      // Increase or decrease the current tab by 1 and show tab:
+      this.currentTab = this.currentTab + tabNumber;
+      this.wizardHelperService.showTab(this.currentTab, this.isAddMode, false);
     }
-
-    var prevBtn = document.getElementById('prevBtn');
-    var title = document.getElementById("title");
-
-    if (prevBtn) {
-      if (tabNumber == 0) {
-        prevBtn.style.display = 'none';
-        title?.classList.remove('col-10');
-        title?.classList.add('col-12');
-      }
-      else {
-        prevBtn.style.display = 'inline';
-        title?.classList.remove('col-12');
-        title?.classList.add('col-10');
-      }
-    }
-
-    var nextBtn = document.getElementById('nextBtn');
-    if (nextBtn) {
-      var btnText = this.isAddMode ? 'ADD STAFF MEMBER' : 'UPDATE STAFF MEMBER';
-      nextBtn.innerHTML = (tabNumber == (tabs.length - 1)) ? `${btnText}` : 'NEXT';
-    }
-
-    this.fixStepIndicator(tabNumber)
-  }
-
-  nextPrev(tabNumber: number): void {
-
-    // This function will figure out which tab to display
-    var tabs = Array.from(document.getElementsByClassName('tab') as HTMLCollectionOf<HTMLElement>)
-
-    // Hide the current tab:
-    tabs[this.currentTab].style.display = 'none';
-    // Increase or decrease the current tab by 1:
-    this.currentTab = this.currentTab + tabNumber;
-    // if you have reached the end of the form... :
-    if (this.currentTab >= tabs.length) {
-      this.onSubmit();
-      return;
-    }
-    // Otherwise, display the correct tab:
-    this.showTab(this.currentTab);
-  }
-
-  fixStepIndicator(n: number): void {
-    // This function removes the "active" class of all steps...
-    var i, step = document.getElementsByClassName('step');
-    for (i = 0; i < step.length; i++) {
-      step[i].className = step[i].className.replace(' active', '');
-    }
-    //... and adds the "active" class to the current step:
-    step[n].className += ' active';
   }
 
   getAllStaffMembers(officeId: string): void {

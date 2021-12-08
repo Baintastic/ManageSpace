@@ -42,7 +42,7 @@
 
         <div class="row d-flex justify-content-center mt-3">
             <div class="form-group col-md-6">
-                <input type="text" class="form-control" placeholder="Phone Number" formControlName="phoneNumber" required />
+                <input type="text" class="form-control" placeholder="Phone Number" formControlName="phoneNumber" OnlyNumber required />
                 <div *ngIf="f.phoneNumber.touched && f.phoneNumber.errors?.required" class="alert-danger">
                     Phone Number is required
                 </div>

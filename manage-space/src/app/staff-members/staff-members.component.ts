@@ -54,7 +54,7 @@ export class StaffMembersComponent implements OnInit {
   getOfficeDetails(officeId: string): void {
     this.officeService.listenToOfficeById(officeId).subscribe(data => {
       this.office = data as OfficeI;
-      this.isMaxCapacityReached = this.office.numberOfPresentStaff + 1 <= this.office.maxCapacity ? false : true;
+      this.isMaxCapacityReached = this.office?.numberOfPresentStaff + 1 <= this.office?.maxCapacity ? false : true;
     })
   }
 
