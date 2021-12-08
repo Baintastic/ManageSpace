@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { StaffMember } from 'src/app/models/staff-member';
+import { StaffMemberI } from 'src/app/models/staff-member';
 import { Location } from '@angular/common';
 import { MemberService } from '../member.service';
 import { Router } from '@angular/router';
 import { OfficeService } from 'src/app/offices/office.service';
-import { Office } from 'src/app/models/office';
+import { OfficeI } from 'src/app/models/office';
 
 @Component({
   selector: 'app-add-edit-staff-member',
@@ -25,7 +25,7 @@ export class AddEditStaffMemberComponent implements OnInit {
   });
   avatars: string[] = [];
   selectedAvatar: string = '';
-  selectedStaffMember?: StaffMember;
+  selectedStaffMember?: StaffMemberI;
   currentTab: number = 0;
   isSpinnerLoading: boolean = false;
 
@@ -37,31 +37,31 @@ export class AddEditStaffMemberComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
+    this.avatars = this.getAvatarUrls();
     if (!this.isAddMode) {
       this.isSpinnerLoading = true;
       this.isAddMode = false;
       this.memberService.getMemberbyId(this.memberId).subscribe(data => {
-        this.selectedStaffMember = data.data() as StaffMember;
+        this.selectedStaffMember = data.data() as StaffMemberI;
         this.bindValuesToMemberForm();
         this.isSpinnerLoading = false;
       })
     }
     this.showTab(this.currentTab);
-    this.avatars = this.getAvatarUrls();
   }
 
-  getAvatarUrls(): string[]{
+  getAvatarUrls(): string[] {
     return ['https://gravatar.com/avatar/8f86daeeef9b6268d9571717089f8ea6?s=400&d=robohash&r=x',
-    'https://robohash.org/8f86daeeef9b6268d9571717089f8ea6?set=set4&bgset=&size=200x200', 
-    'https://robohash.org/8f86daeeef9b6268d9571717089f8ea6?set=set2&bgset=bg1&size=200x200', 
-    'https://robohash.org/8f86daeeef9b6268d9571717089f8ea6?set=set3&bgset=bg1&size=200x200', 
-    'https://gravatar.com/avatar/8cff925a90d93c2321b5eb03ca38ee69?s=200&d=robohash&r=x', 
-    'https://gravatar.com/avatar/adb9c2f4ff9838fa626e1bdb44f81fd9?s=200&d=robohash&r=x',
-   'https://gravatar.com/avatar/f95254b4f811ea7ff181eb39583272fc?s=400&d=robohash&r=x',
-  'https://robohash.org/137d88fe4d76f86806bae6329030471a?set=set4&bgset=&size=400x400']
-  } 
+      'https://robohash.org/8f86daeeef9b6268d9571717089f8ea6?set=set4&bgset=&size=200x200',
+      'https://robohash.org/8f86daeeef9b6268d9571717089f8ea6?set=set2&bgset=bg1&size=200x200',
+      'https://robohash.org/8f86daeeef9b6268d9571717089f8ea6?set=set3&bgset=bg1&size=200x200',
+      'https://gravatar.com/avatar/8cff925a90d93c2321b5eb03ca38ee69?s=200&d=robohash&r=x',
+      'https://gravatar.com/avatar/adb9c2f4ff9838fa626e1bdb44f81fd9?s=200&d=robohash&r=x',
+      'https://gravatar.com/avatar/f95254b4f811ea7ff181eb39583272fc?s=400&d=robohash&r=x',
+      'https://robohash.org/137d88fe4d76f86806bae6329030471a?set=set4&bgset=&size=400x400']
+  }
 
-   bindValuesToMemberForm(): void  {
+  bindValuesToMemberForm(): void {
     this.memberForm.get('firstName')?.setValue(this.selectedStaffMember?.firstName);
     this.memberForm.get('lastName')?.setValue(this.selectedStaffMember?.lastName);
     this.memberForm.get('avatar')?.setValue(this.selectedStaffMember?.avatar);
@@ -79,28 +79,31 @@ export class AddEditStaffMemberComponent implements OnInit {
   }
 
   addStaffMember(): void {
+    this.activeModal.dismiss('Cross click')
     this.isSpinnerLoading = true;
     var member = this.getMemberFormvalues();
-    this.memberService.createMember(member).then(() => {
-      console.log('Created new member successfully!');
 
-      this.officeService.getOfficebyId(member.officeId).subscribe(data => {
-        var office = data.data() as Office;
-        var newMaxCapacity: number = +office.maxCapacity + 1;
-        office.maxCapacity = newMaxCapacity.toString();
+    this.officeService.getOfficebyId(member.officeId).subscribe(data => {
+      var office = data.data() as OfficeI;
+      this.isSpinnerLoading = false;
+      office.numberOfPresentStaff = office.numberOfPresentStaff += 1;
+
+      this.memberService.createMember(member).then(() => {
+        console.log('Created new member successfully!');
 
         this.officeService.updateOffice(member.officeId, office)
           .then(() => {
             console.log('Updated office details successfully!');
             this.isSpinnerLoading = false;
+            this.router.navigate(['/detail/', this.officeId]);
           })
           .catch(err => console.log(err));
-        this.router.navigate(['/detail/', this.officeId]);
-      })
-    });
+      });
+    })
   }
 
   updateStaffMember(): void {
+    this.activeModal.dismiss('Cross click')
     this.isSpinnerLoading = true;
     var member = this.getMemberFormvalues();
     if (this.selectedStaffMember) {
@@ -117,8 +120,8 @@ export class AddEditStaffMemberComponent implements OnInit {
     this.location.back();
   }
 
-  getMemberFormvalues(): StaffMember {
-    var office: StaffMember = {
+  getMemberFormvalues(): StaffMemberI {
+    var office: StaffMemberI = {
       firstName: this.memberForm.value.firstName,
       lastName: this.memberForm.value.lastName,
       officeId: this.officeId,
@@ -175,7 +178,6 @@ export class AddEditStaffMemberComponent implements OnInit {
     this.currentTab = this.currentTab + tabNumber;
     // if you have reached the end of the form... :
     if (this.currentTab >= tabs.length) {
-      this.activeModal.dismiss('Cross click')
       this.onSubmit();
       return;
     }
@@ -193,4 +195,7 @@ export class AddEditStaffMemberComponent implements OnInit {
     step[n].className += ' active';
   }
 
+  getAllStaffMembers(officeId: string): void {
+    this.memberService.getAllMembersByOfficeId(officeId);
+  }
 }

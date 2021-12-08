@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/compat/firestore';
-import { Office } from '../models/office';
+import { OfficeI } from '../models/office';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +9,14 @@ export class OfficeService {
 
   private dbPath = 'offices';
 
-  officeRef: AngularFirestoreCollection<Office>;
+  officeRef: AngularFirestoreCollection<OfficeI>;
 
   constructor(private afs: AngularFirestore) {
     this.officeRef = afs.collection(this.dbPath);
+  }
+
+  listenToOfficeById(id: string) {
+    return this.officeRef.doc(id).valueChanges();
   }
 
   getOfficebyId(id: string) {
@@ -23,7 +27,7 @@ export class OfficeService {
     return this.officeRef.snapshotChanges();
   }
 
-  createOffice(office: Office): any {
+  createOffice(office: OfficeI): any {
     return this.officeRef.add(office);
   }
 

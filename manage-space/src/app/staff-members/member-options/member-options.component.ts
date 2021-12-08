@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Office } from 'src/app/models/office';
-import { StaffMember } from 'src/app/models/staff-member';
+import { OfficeI } from 'src/app/models/office';
+import { StaffMemberI } from 'src/app/models/staff-member';
 import { OfficeService } from 'src/app/offices/office.service';
 import { AddEditStaffMemberComponent } from '../add-edit-staff-member/add-edit-staff-member.component';
 import { MemberService } from '../member.service';
@@ -18,6 +18,7 @@ export class MemberOptionsComponent implements OnInit {
 
   isDeleteMode: boolean = false;
   currentTab: number = 0;
+  isSpinnerLoading: boolean = false;
 
   constructor(private modalService: NgbModal,
     public activeModal: NgbActiveModal,
@@ -78,12 +79,13 @@ export class MemberOptionsComponent implements OnInit {
   }
 
   deleteOffice() {
+    this.isSpinnerLoading = true;
     //Get and delete all office staff members before deleting an office
     this.memberService.getAllMembersByOfficeId(this.officeId).subscribe(data => {
       var staffMembers = data.map(e => {
         return {
           id: e.payload.doc.id,
-          ...e.payload.doc.data() as StaffMember
+          ...e.payload.doc.data() as StaffMemberI
         }
       })
 
@@ -94,6 +96,7 @@ export class MemberOptionsComponent implements OnInit {
       this.officeService.deleteOffice(this.officeId)
       .then(() => {
         console.log('Deleted office successfully!');
+        this.isSpinnerLoading = false;
         this.router.navigate(['/offices']);
       }).catch(err => console.log(err));
     });
@@ -101,23 +104,25 @@ export class MemberOptionsComponent implements OnInit {
   }
 
   deleteStaffMember() {
-    //Get office details and update number of total staff members
-    this.officeService.getOfficebyId(this.officeId).subscribe(data => {
-      var office = data.data() as Office;
-      var newMaxCapacity: number = +office.maxCapacity - 1;
-      office.maxCapacity = newMaxCapacity.toString();
+    this.isSpinnerLoading = true;
 
-      this.officeService.updateOffice(this.officeId, office)
-        .then(() => console.log('Updated office details successfully!'))
-        .catch(err => console.log(err));
-    })
-
+    //Delete staff member and update number of present staff members
     this.memberService.deleteMember(this.memberId)
       .then(() => {
         console.log('Deleted staff successfully!');
         this.activeModal.dismiss('Cross click');
-      }).catch(err => console.log(err));
+
+        this.officeService.getOfficebyId(this.officeId).subscribe(data => {
+          var office = data.data() as OfficeI;
     
+          office.numberOfPresentStaff = office.numberOfPresentStaff -= 1;
+          this.officeService.updateOffice(this.officeId, office)
+            .then(() => {
+              console.log('Updated office details successfully!')
+              this.isSpinnerLoading = false;
+            }).catch(err => console.log(err));
+        })
+      }).catch(err => console.log(err));
   }
 
   openEditMemberModal() {

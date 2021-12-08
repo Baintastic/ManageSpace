@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Office } from 'src/app/models/office';
+import { OfficeI } from 'src/app/models/office';
 import { Location } from '@angular/common';
 import { OfficeService } from '../office.service';
 
@@ -10,7 +10,7 @@ import { OfficeService } from '../office.service';
   styleUrls: ['./office-detail.component.css']
 })
 export class OfficeDetailComponent implements OnInit {
-  office: Office | undefined;
+  office: OfficeI | undefined;
   officeId: string = '';
   isSpinnerLoading: boolean = true;
 
@@ -26,8 +26,8 @@ export class OfficeDetailComponent implements OnInit {
 
   getOfficeDetails(): void {
     this.officeId = this.route.snapshot.paramMap.get('id')!;
-    this.officeService.getOfficebyId(this.officeId).subscribe(data => {
-      this.office = data.data() as Office;
+    this.officeService.listenToOfficeById(this.officeId).subscribe(data => {
+      this.office = data as OfficeI;
       this.isSpinnerLoading = false;
     })
   }

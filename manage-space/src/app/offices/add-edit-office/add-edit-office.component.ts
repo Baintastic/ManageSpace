@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Office } from 'src/app/models/office';
+import { OfficeI } from 'src/app/models/office';
 import { Location } from '@angular/common';
 import { OfficeService } from '../office.service';
-import { StaffMember } from 'src/app/models/staff-member';
+import { StaffMemberI } from 'src/app/models/staff-member';
 import { MemberService } from 'src/app/staff-members/member.service';
 
 @Component({
@@ -24,7 +24,7 @@ export class AddEditOfficeComponent implements OnInit {
   isAddMode: boolean = false;
   colors: string[] = [];
   selectedColour: string = '';
-  selectedOffice?: Office;
+  selectedOffice?: OfficeI;
   officeId: string = '';
   isSpinnerLoading: boolean = true;
 
@@ -46,7 +46,7 @@ export class AddEditOfficeComponent implements OnInit {
       this.isAddMode = false;
       this.officeId = this.route.snapshot.paramMap.get('id')!;
       this.officeService.getOfficebyId(this.officeId).subscribe(data => {
-        this.selectedOffice = data.data() as Office;
+        this.selectedOffice = data.data() as OfficeI;
         this.bindValuesToOfficeForm();
         this.isSpinnerLoading = false;
       })
@@ -54,7 +54,7 @@ export class AddEditOfficeComponent implements OnInit {
     this.colors = ['orange', 'pink', 'orangered', 'brown', 'yellow', 'darkorchid', 'lightblue', 'green', 'lightskyblue', 'blue', 'slateblue'];
   }
 
-  private bindValuesToOfficeForm() {
+    bindValuesToOfficeForm(): void {
     this.officeForm.get('name')?.setValue(this.selectedOffice?.name);
     this.officeForm.get('physicalAddress')?.setValue(this.selectedOffice?.physicalAddress);
     this.officeForm.get('emailAddress')?.setValue(this.selectedOffice?.emailAddress);
@@ -102,14 +102,15 @@ export class AddEditOfficeComponent implements OnInit {
     this.location.back();
   }
 
-  getOfficeFormvalues(): Office {
-    var office: Office = {
+  getOfficeFormvalues(): OfficeI {
+    var office: OfficeI = {
       name: this.officeForm.value.name,
       phoneNumber: this.officeForm.value.phoneNumber,
       physicalAddress: this.officeForm.value.physicalAddress,
       emailAddress: this.officeForm.value.emailAddress,
       maxCapacity: this.officeForm.value.maxCapacity,
       colour: this.officeForm.value.colour,
+      numberOfPresentStaff: 0
     };
     return office;
   }
@@ -121,7 +122,7 @@ export class AddEditOfficeComponent implements OnInit {
       var staffMembers = data.map(e => {
         return {
           id: e.payload.doc.id,
-          ...e.payload.doc.data() as StaffMember
+          ...e.payload.doc.data() as StaffMemberI
         }
       })
 

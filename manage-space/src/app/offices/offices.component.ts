@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Office } from '../models/office';
+import { OfficeI } from '../models/office';
 import { map } from 'rxjs/operators';
 import { OfficeService } from './office.service';
 
@@ -9,7 +9,7 @@ import { OfficeService } from './office.service';
   styleUrls: ['./offices.component.css']
 })
 export class OfficesComponent implements OnInit {
-  offices: Office[] = [];
+  offices: OfficeI[] = [];
   isSpinnerLoading: boolean = true;
 
   constructor(private officeService: OfficeService) { }
@@ -23,7 +23,7 @@ export class OfficesComponent implements OnInit {
       this.offices = data.map(e => {
         return {
           id: e.payload.doc.id,
-          ...e.payload.doc.data() as Office
+          ...e.payload.doc.data() as OfficeI
         }
       })
       this.isSpinnerLoading = false;

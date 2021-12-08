@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Office } from 'src/app/models/office';
+import { OfficeI } from 'src/app/models/office';
 
 @Component({
   selector: 'app-office',

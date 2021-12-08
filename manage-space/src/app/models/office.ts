@@ -1,9 +1,10 @@
-export interface Office {
+export interface OfficeI {
     officeId?: string;
     name: string;
     physicalAddress: string;
     emailAddress: string;
     phoneNumber: string;
-    maxCapacity: string;
+    maxCapacity: number;
     colour: string;
+    numberOfPresentStaff: number;
   }

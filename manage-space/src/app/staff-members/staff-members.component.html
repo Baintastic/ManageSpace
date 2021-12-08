@@ -14,7 +14,7 @@
             <h2><strong>Staff Members in Office</strong></h2>
         </div>
         <div class="col-2 col-sm-2 col-md-2 col-lg-2 pt-1">
-            <h3>{{office?.maxCapacity}}</h3>
+            <h3>{{office?.numberOfPresentStaff}}</h3>
         </div>
     </div>
     <div class="row mt-3 justify-content-md-center">
@@ -32,6 +32,11 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+    <div class="row mt-4 justify-content-md-center" *ngIf="showCapacityReachedMessage">
+        <div class="col-sm-10 col-md-8 col-lg-8 btn-danger text-center">
+            <h4>Unable to add staff member.Maximum office capacity has been reached.</h4>
         </div>
     </div>
 </div>

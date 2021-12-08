@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/compat/firestore';
-import { StaffMember } from '../models/staff-member';
+import { StaffMemberI } from '../models/staff-member';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ export class MemberService {
 
   private dbPath = 'staff-members';
 
-  memberRef: AngularFirestoreCollection<StaffMember>;
+  memberRef: AngularFirestoreCollection<StaffMemberI>;
 
   constructor(private afs: AngularFirestore) {
     this.memberRef = afs.collection(this.dbPath);
@@ -23,7 +23,7 @@ export class MemberService {
     return this.afs.collection(this.dbPath, ref => ref.where('officeId', '==', officeId)).snapshotChanges();
   }
 
-  createMember(office: StaffMember): any {
+  createMember(office: StaffMemberI): any {
     return this.memberRef.add(office);
   }
 
