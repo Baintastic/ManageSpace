@@ -24,6 +24,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { MemberOptionsComponent } from './staff-members/member-options/member-options.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { OnlyNumberDirective } from './directives/only-number.directive';
 
 export const firebaseConfig = environment.firebaseConfig;
 
@@ -37,6 +38,7 @@ export const firebaseConfig = environment.firebaseConfig;
     StaffMembersComponent,
     AddEditStaffMemberComponent,
     MemberOptionsComponent,
+    OnlyNumberDirective,
   ],
   imports: [
     BrowserModule,
