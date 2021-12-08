@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OfficeI } from 'src/app/models/office';
 import { Location } from '@angular/common';
-import { OfficeService } from '../office.service';
+import { OfficeService } from '../../services/office.service';
 
 @Component({
   selector: 'app-office-detail',

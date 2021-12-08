@@ -3,11 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { StaffMemberI } from 'src/app/models/staff-member';
 import { Location } from '@angular/common';
-import { MemberService } from '../member.service';
 import { Router } from '@angular/router';
-import { OfficeService } from 'src/app/offices/office.service';
+import { OfficeService } from 'src/app/services/office.service';
 import { OfficeI } from 'src/app/models/office';
 import { WizardHelperService } from 'src/app/services/shared/wizard-helper.service';
+import { MemberService } from 'src/app/services/member.service';
 
 @Component({
   selector: 'app-add-edit-staff-member',

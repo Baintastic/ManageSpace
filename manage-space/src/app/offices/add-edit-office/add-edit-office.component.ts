@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OfficeI } from 'src/app/models/office';
 import { Location } from '@angular/common';
-import { OfficeService } from '../office.service';
+import { OfficeService } from '../../services/office.service';
 import { StaffMemberI } from 'src/app/models/staff-member';
-import { MemberService } from 'src/app/staff-members/member.service';
+import { MemberService } from 'src/app/services/member.service';
 
 @Component({
   selector: 'app-add-edit-office',

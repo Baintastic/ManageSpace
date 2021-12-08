@@ -4,12 +4,12 @@ import { StaffMemberI } from '../models/staff-member';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddEditStaffMemberComponent } from './add-edit-staff-member/add-edit-staff-member.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MemberService } from './member.service';
-import { OfficeService } from '../offices/office.service';
+import { OfficeService } from '../services/office.service';
 import { MemberOptionsComponent } from './member-options/member-options.component';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NgModel } from '@angular/forms';
+import { MemberService } from '../services/member.service';
 
 @Component({
   selector: 'app-staff-members',

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OfficeI } from '../models/office';
 import { map } from 'rxjs/operators';
-import { OfficeService } from './office.service';
+import { OfficeService } from '../services/office.service';
 
 @Component({
   selector: 'app-offices',

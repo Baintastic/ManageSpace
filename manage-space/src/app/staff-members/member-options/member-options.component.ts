@@ -3,10 +3,10 @@ import { Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OfficeI } from 'src/app/models/office';
 import { StaffMemberI } from 'src/app/models/staff-member';
-import { OfficeService } from 'src/app/offices/office.service';
+import { MemberService } from 'src/app/services/member.service';
+import { OfficeService } from 'src/app/services/office.service';
 import { WizardHelperService } from 'src/app/services/shared/wizard-helper.service';
 import { AddEditStaffMemberComponent } from '../add-edit-staff-member/add-edit-staff-member.component';
-import { MemberService } from '../member.service';
 
 @Component({
   selector: 'app-member-options',
