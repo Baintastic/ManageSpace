@@ -2,12 +2,29 @@
     z-index: 10;
     position: fixed;
     right: 20px;
-    top: 500px;
+    top: 70%;
 }
 
 .spinner {
     z-index: 10;
     position: fixed;
-    right: 170px;
-    top: 370px;
+    left: 50%;
+    top: 50%;
+}
+
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+
+@media only screen and (min-width: 600px) {
+    .add-btn {
+        width: 4rem;
+        height: 4rem;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .add-btn {
+        width: 5rem;
+        height: 5rem;
+    }
 }

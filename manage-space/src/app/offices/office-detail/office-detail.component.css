@@ -1,3 +1,10 @@
+.add-btn {
+    z-index: 10;
+    position: fixed;
+    right: 20px;
+    top: 70%;
+}
+
 .text-center {
     text-align: center!important;
     padding-right: 60px;
@@ -6,6 +13,18 @@
 .spinner {
     z-index: 10;
     position: fixed;
-    right: 170px;
-    top: 370px;
+    left: 50%;
+    top: 50%;
+}
+
+@media only screen and (min-width: 600px) {
+    .mat-icon {
+        font-size: 40px;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .mat-icon {
+        font-size: 60px;
+    }
 }

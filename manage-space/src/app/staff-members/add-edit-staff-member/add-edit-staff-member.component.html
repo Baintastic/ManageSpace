@@ -18,7 +18,7 @@
         <div class="form-group">
             <div class="tab">
                 <div class="row d-flex justify-content-center">
-                    <div class="form-group col-md-6 ">
+                    <div class="form-group col-sm-12 col-md-6 col-lg-10">
                         <input type="text" class="form-control" placeholder="First Name" formControlName="firstName" required />
                         <div *ngIf="f.firstName.touched && f.firstName.errors?.required" class="alert-danger">
                             First Name is required
@@ -27,7 +27,7 @@
                 </div>
 
                 <div class="row d-flex justify-content-center mt-2">
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-sm-12 col-md-6 col-lg-10">
                         <input type="text" class="form-control" placeholder="Last Name" formControlName="lastName" required />
                         <div *ngIf="f.lastName.touched && f.lastName.errors?.required" class="alert-danger">
                             Last Name is required

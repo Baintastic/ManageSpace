@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { OfficesComponent } from './offices/offices.component';
 import { OfficeComponent } from './offices/office/office.component';
 import { OfficeDetailComponent } from './offices/office-detail/office-detail.component';
@@ -23,6 +23,7 @@ import {  AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { MemberOptionsComponent } from './staff-members/member-options/member-options.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 export const firebaseConfig = environment.firebaseConfig;
 
@@ -52,7 +53,9 @@ export const firebaseConfig = environment.firebaseConfig;
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
     AngularFireDatabaseModule,
-    NgbModule
+    NgbModule,
+    MatProgressSpinnerModule,
+    BrowserAnimationsModule
   ],
   entryComponents: [AddEditStaffMemberComponent],
   providers: [],

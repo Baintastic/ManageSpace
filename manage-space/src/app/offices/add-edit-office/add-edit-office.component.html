@@ -51,7 +51,7 @@
 
         <div class="row d-flex justify-content-center mt-3">
             <div class="form-group col-md-6">
-                <input type="text" id="maxCapacity" class="form-control" placeholder="Maximum Capacity" formControlName="maxCapacity" required />
+                <input type="text" id="maxCapacity" class="form-control" placeholder="Maximum Capacity" formControlName="maxCapacity" OnlyNumber required />
                 <div *ngIf="f.maxCapacity.touched && f.maxCapacity.errors?.required" class="alert-danger">
                     Maximum Capacity is required
                 </div>

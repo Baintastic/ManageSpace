@@ -3,10 +3,10 @@
         <h1 class="my-3">All Offices</h1>
     </div>
     <div class="row">
-        <div class="col-sm-3" *ngFor="let office of offices">
+        <div class="col-sm-6 col-md-6 col-lg-3" *ngFor="let office of offices">
             <app-office [office]="office"></app-office>
         </div>
     </div>
-    <mat-spinner class="spinner" [diameter]="45" *ngIf="isSpinnerLoading"></mat-spinner>
+    <mat-spinner class="spinner" [diameter]="45"></mat-spinner>
 </div>
 <button mat-fab color="basic" class="add-btn" routerLink="/add-office">+</button>

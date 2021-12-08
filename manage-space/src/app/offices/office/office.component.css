@@ -42,7 +42,7 @@
 
 .card.rounded-3 {
     padding: 0px;
-    max-width: 450px;
+    max-width: auto;
     margin-bottom: 10px;
 }
 
