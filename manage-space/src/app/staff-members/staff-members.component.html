@@ -23,7 +23,7 @@
                 <tbody>
                     <tr *ngFor="let member of staffMembers | filter:searchText">
                         <td>
-                            <span class="avatar-circle" [style.background-color]="member.avatar"></span>
+                            <span class="avatar-circle" [ngStyle]="{'background-image': 'url(' + member.avatar + ')'}"></span>
                         </td>
                         <td>{{member?.firstName}} {{member?.lastName}}</td>
                         <td>

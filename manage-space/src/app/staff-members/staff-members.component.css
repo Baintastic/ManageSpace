@@ -11,6 +11,7 @@
     width: 42px;
     border-radius: 50%;
     line-height: 50px;
+    background-size: 100%;
 }
 
 td {

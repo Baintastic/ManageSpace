@@ -44,7 +44,7 @@
                 <div class="row">
                     <div class="col-3 mt-2 d-flex justify-content-evenly" *ngFor="let avatar of avatars">
                         <div class="form-check">
-                            <input class="form-check-input" [style.background-color]="avatar" type="radio" [value]="avatar" formControlName="avatar" [checked]="(avatar === selectedAvatar)">
+                            <input class="form-check-input" [ngStyle]="{'background-image': 'url(' + avatar + ')'}" type="radio" [value]="avatar" formControlName="avatar" [checked]="(avatar === selectedAvatar)">
                         </div>
                     </div>
                 </div>

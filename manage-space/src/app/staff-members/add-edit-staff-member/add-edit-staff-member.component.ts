@@ -47,8 +47,19 @@ export class AddEditStaffMemberComponent implements OnInit {
       })
     }
     this.showTab(this.currentTab);
-    this.avatars = ['orange', 'pink', 'orangered', 'brown', 'yellow', 'darkorchid', 'lightblue'];
+    this.avatars = this.getAvatarUrls();
   }
+
+  getAvatarUrls(): string[]{
+    return ['https://gravatar.com/avatar/8f86daeeef9b6268d9571717089f8ea6?s=400&d=robohash&r=x',
+    'https://robohash.org/8f86daeeef9b6268d9571717089f8ea6?set=set4&bgset=&size=200x200', 
+    'https://robohash.org/8f86daeeef9b6268d9571717089f8ea6?set=set2&bgset=bg1&size=200x200', 
+    'https://robohash.org/8f86daeeef9b6268d9571717089f8ea6?set=set3&bgset=bg1&size=200x200', 
+    'https://gravatar.com/avatar/8cff925a90d93c2321b5eb03ca38ee69?s=200&d=robohash&r=x', 
+    'https://gravatar.com/avatar/adb9c2f4ff9838fa626e1bdb44f81fd9?s=200&d=robohash&r=x',
+   'https://gravatar.com/avatar/f95254b4f811ea7ff181eb39583272fc?s=400&d=robohash&r=x',
+  'https://robohash.org/137d88fe4d76f86806bae6329030471a?set=set4&bgset=&size=400x400']
+  } 
 
    bindValuesToMemberForm(): void  {
     this.memberForm.get('firstName')?.setValue(this.selectedStaffMember?.firstName);
